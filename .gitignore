@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+/src/app/navbar/navbar-list.service.ts
+/src/app/navbar/navbar-list.service.spec.ts

@@ -1,0 +1,15 @@
+.alert-success{
+    background-color: aquamarine;
+}
+.alert-info{
+    background-color: bisque;
+}
+.alert-warning{
+    background-color: khaki;
+}
+.alert-danger{
+    background-color: lightcoral;
+}
+.error-msg{
+    display: block;
+}
