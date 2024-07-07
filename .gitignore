@@ -43,3 +43,5 @@ Thumbs.db
 
 /src/app/navbar/navbar-list.service.ts
 /src/app/navbar/navbar-list.service.spec.ts
+eslint.config.js
+eslint.config.mjs

@@ -1,27 +1,36 @@
-<app-navbar></app-navbar>
-<br><br>
 <article>
-  <h3>Class e Style binding</h3>
-  <div>
-      <mat-form-field>
-      <mat-select #classe (change)="0">
-          <mat-label style="color:aliceblue">Selecione uma classe:</mat-label>
-          <mat-option value="alert-success">Sucesso</mat-option>
-          <mat-option value="alert-info">Info</mat-option>
-          <mat-option value="alert-warning">Warning</mat-option >
-          <mat-option value="alert-danger">Erro</mat-option >
-      </mat-select> 
-      </mat-form-field>
-      <br><br>
+  <h3>{{ nomePortal }}</h3>
+  <br><br>
+  <mat-tab-group (selectedTabChange)="navigateTo($event.tab.textLabel)">
+    <mat-tab label=""> Home  </mat-tab>
+    <mat-tab label="Search"> </mat-tab>
+  </mat-tab-group>
 
-      <form>
-        <input #submitContent (change)="getForm(submitContent)" type="text" placeholder="Pesquisar">
-        <button mat-raised-button type="submit" name="action">Submit</button>
-      </form>
-      <div class="alert {{ classe.value }}" role="alert">Alerta </div>
-      <div [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">  Campo informado não permitido</div>
-      <div *ngIf="title === 'jewelAPI'">jewelAPI</div>
-    </div>
+
+  <h4>Class e Style binding</h4>
+  <div>
+    <mat-form-field>
+    <mat-select #classe (change)="0">
+        <mat-label style="color:aliceblue">Selecione uma classe:</mat-label>
+        <mat-option value="alert-success">Sucesso</mat-option>
+        <mat-option value="alert-info">Info</mat-option>
+        <mat-option value="alert-warning">Warning</mat-option >
+        <mat-option value="alert-danger">Erro</mat-option >
+    </mat-select> 
+    </mat-form-field>
+    <br><br>
+
+    <form>
+      <input #submitContent (change)="getForm(submitContent)" type="text" placeholder="Pesquisar">
+      <button mat-raised-button type="submit" name="action">Submit</button>
+    </form>
+    <div class="alert {{ classe.value }}" role="alert">Alerta </div>
+    <div [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">  Campo informado não permitido</div>
+    <div *ngIf="title === 'jewelAPI'">jewelAPI</div>
+  </div>
+
+  <router-outlet></router-outlet>
+
 </article>
 
-<router-outlet />
+
