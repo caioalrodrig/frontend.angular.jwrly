@@ -2,11 +2,11 @@ import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 import { TabComponent } from './tab.component';
-import { TabDetalheComponent } from './tab-detalhe/tab-detalhe.component'
+import { TabFormComponent } from './tab-form/tab-form.component'
 
 export const routes: Routes = [
   { path: '', component: TabComponent, children: [
-    { path: 'search', component: TabDetalheComponent },
+    { path: 'search', component: TabFormComponent },
     { path: 'not-found', component: TabComponent },
     { path: 'user', component: TabComponent }
   ]}

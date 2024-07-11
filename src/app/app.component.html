@@ -1,10 +1,14 @@
 <article>
-  <h3>{{ nomePortal }}</h3>
-  <br><br>
-  <mat-tab-group (selectedTabChange)="navigateTo($event.tab.textLabel)">
-    <mat-tab label=""> Home  </mat-tab>
-    <mat-tab label="Search"> </mat-tab>
-  </mat-tab-group>
+  <mat-toolbar>
+    <button mat-icon-button (click)="navigateTo()"  aria-label="Icon-button with menu icon">
+      <mat-icon>{{ icon }}</mat-icon>
+    </button>
+    
+    <span class="spacer"> nomePortal</span>
+    <button value="submit" mat-icon-button aria-label="Example icon-button with heart icon">
+      <mat-icon>avatar</mat-icon>
+    </button>
+  </mat-toolbar>
 
 
   <h4>Class e Style binding</h4>
@@ -26,7 +30,6 @@
     </form>
     <div class="alert {{ classe.value }}" role="alert">Alerta </div>
     <div [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">  Campo informado não permitido</div>
-    <div *ngIf="title === 'jewelAPI'">jewelAPI</div>
   </div>
 
   <router-outlet></router-outlet>

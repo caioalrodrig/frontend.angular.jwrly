@@ -5,8 +5,12 @@ import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   { path: '', component: AppComponent},
-  { path: 'tab', loadChildren: () => import('./tab/tab.module').then( m => m.TabModule )},
-  { path: 'login', loadChildren: () => import('./tab/tab.module').then( m => m.TabModule )}
+  { path: 'tab', loadChildren: () => import('./tab/tab.module')
+  .then( m => m.TabModule )},
+  // { path: 'login', loadChildren: () => import('./tab/tab.module')
+  // .then( m => m.TabModule )},
+  { path: 'relogio', loadChildren: () => import('./relogio/relogio.component')
+  .then( m => m.RelogioComponent )}
 
 
 ];

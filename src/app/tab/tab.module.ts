@@ -7,6 +7,7 @@ import { routing } from './tab.routes';
   declarations: [],
   imports: [
     CommonModule, routing
-  ]
+  ],
+
 })
 export class TabModule { }

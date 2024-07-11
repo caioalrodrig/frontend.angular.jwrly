@@ -1,0 +1,32 @@
+<p>tab-detalhe works!</p>
+<p> {{ dataRes | json}} </p>
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Relogio Rolex Anterma</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-footer>
+    <mat-chip-set *ngFor="let item of dataRes" aria-label="Relogio obtido" class="mat-mdc-chip-set-stacked">
+      <label> {{ item[0] }}</label>
+      <mat-chip>{{ item[1] }}</mat-chip>
+    </mat-chip-set>
+  </mat-card-footer>
+</mat-card>
+<br><br>
+<form class="form-horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+  <mat-form-field class="form-group">
+      <mat-label for="nome" class="control-mat-label">Nome</mat-label>
+      <input matInput type="text" formControlName="nome" 
+        id="nome" placeholder="Nome" >
+  </mat-form-field>
+  <br><br>
+  <mat-form-field class="form-group">
+      <mat-label for="email" class="control-mat-label">Email</mat-label>
+      <input matInput type="email" formControlName="email"
+        id="email" placeholder="nome@email.com">
+  </mat-form-field>
+  <br><br>
+
+  <button mat-stroked-button type="submit">Submit</button>
+  {{submitDebug}}
+</form>

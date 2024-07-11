@@ -1,0 +1,16 @@
+mat-card {
+  max-width: 400px;
+}
+
+mat-card-footer {
+  padding: 16px;
+}
+mat-chip-set {
+  width: 200px;
+
+  & label {
+    opacity: 0.4;
+    font-size: small;
+    color: #FFFFFF;
+  }
+}
