@@ -1,17 +1,15 @@
-<article>
-  <mat-toolbar>
-    <button mat-icon-button (click)="navigateTo()"  aria-label="Icon-button with menu icon">
+ <mat-toolbar>
+    <button mat-icon-button (click)="navigateTo('search')" [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
       <mat-icon>{{ icon }}</mat-icon>
     </button>
     
-    <span class="spacer"> nomePortal</span>
-    <button value="submit" mat-icon-button aria-label="Example icon-button with heart icon">
-      <mat-icon>avatar</mat-icon>
+    <span class="spacer"> APIJewel</span>
+    <button value="submit" (click)="navigateTo('user')" mat-icon-button [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
+      <mat-icon>person</mat-icon>
     </button>
   </mat-toolbar>
 
-
-  <h4>Class e Style binding</h4>
+  <h4>Title </h4>
   <div>
     <mat-form-field>
     <mat-select #classe (change)="0">
@@ -32,8 +30,8 @@
     <div [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">  Campo informado não permitido</div>
   </div>
 
-  <router-outlet></router-outlet>
+  <app-signin></app-signin>
 
-</article>
+  <router-outlet></router-outlet>
 
 

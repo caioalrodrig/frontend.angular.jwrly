@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { TabFormService } from './tab-form.service';
-import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-tab-detalhe',
@@ -17,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [ JsonPipe, MatCardModule, MatChipsModule,
     CommonModule, ReactiveFormsModule,
     MatProgressBarModule, MatSelectModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule, 
+    MatInputModule
   ],
   // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './tab-form.component.html',
@@ -26,23 +24,17 @@ import { MatButtonModule } from '@angular/material/button';
 
 export class TabFormComponent implements OnInit{
   dataRes: string[][] = [[]];
-  formulario: FormGroup;
-  submitDebug = '';
+  submitStatus = '';
+
   constructor(
-    private relogios: TabFormService,
-    private formBuilder: FormBuilder,
-  
-  ){
-    this.formulario = this.formBuilder.group({
-      nome: [null],
-      email: [null]
-    });
-  }
+    private relogiosGet: TabFormService,
+  ){ }
 
   ngOnInit() {
-    this.relogios.getData().subscribe({
+    this.relogiosGet.getData().subscribe({
       next: (response) => {
-        this.dataRes = Object.entries(response);
+        const first = response[0]; 
+        this.dataRes = Object.entries(first);
         this.dataRes.splice(0, 1);
       },
       error: (error) => {
@@ -50,9 +42,5 @@ export class TabFormComponent implements OnInit{
       }
     });
   }
-
-  onSubmit(){
-    this.submitDebug = 'Hello'
-  }
-
+  
 }
