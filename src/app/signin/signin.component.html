@@ -15,14 +15,3 @@
 
   <button mat-stroked-button type="submit">Submit</button>
 </form>
-<p *ngIf="(signInLoading$ | async) === true">
-  Autenticando...
-</p>
-
-<p *ngIf="(signedIn$ | async) === true">
- Login realizado com sucesso!
-</p>
-
-<p *ngIf="(signedIn$ | async) === false">
- Erro no login
-</p>

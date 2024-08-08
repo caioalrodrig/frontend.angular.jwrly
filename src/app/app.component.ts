@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,11 +7,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { SignInService } from './signin/signin.service';
 import { SignInComponent } from './signin/signin.component';
+import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AppComponent, SignInComponent, MatIconModule,
+  imports: [AppComponent, SignInComponent,
+    AlertDialogComponent, MatIconModule,
     CommonModule, RouterOutlet, MatButtonModule,
     MatToolbarModule, MatSelectModule],
   exportAs: "backend",
@@ -19,28 +21,40 @@ import { SignInComponent } from './signin/signin.component';
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   icon = 'menu';
   currentRoute = '';
+  successLogin = true;
+  loggedin$;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,    
-    private loginService: SignInService 
-  ) {}
+    private SigninProvider: SignInService 
+  ) {
+    this.loggedin$ = this.SigninProvider.signedin$;
+  }
 
-  getForm(submiText: HTMLInputElement){
+  ngOnInit(): void {
+  }
+
+  getForm(submiText: HTMLInputElement): void{
     console.log(submiText.value);
   }
 
-  navigateTo(subroute: string) {
+  navigateTo(subroute: string): void {
     this.currentRoute === '' ? this.icon = 'arrow_back' : this.icon = 'menu'; 
     this.currentRoute === '' ? this.currentRoute = `tab/${subroute}` 
      : this.currentRoute = '';
     this.router.navigate([this.currentRoute]);
-    console.log(this.loginService.bearerToken);
-    console.log(this.loginService.userId);
+    console.log(this.SigninProvider.bearerToken);
+    console.log(this.SigninProvider.userId);
 
   }
 
+  alertSuccessLogin(){
+    setTimeout(() =>{
+      this.successLogin = false;
+    }, 5000);
+  }
 }
