@@ -7,12 +7,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { SignInService } from './signin/signin.service';
 import { SignInComponent } from './signin/signin.component';
+import { SignUpService } from './signup/signup.service';
+import { SignUpComponent } from './signup/signup.component';
 import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AppComponent, SignInComponent,
+  imports: [AppComponent,
+    SignInComponent, SignUpComponent,
     AlertDialogComponent, MatIconModule,
     CommonModule, RouterOutlet, MatButtonModule,
     MatToolbarModule, MatSelectModule],
@@ -26,13 +30,16 @@ export class AppComponent implements OnInit{
   currentRoute = '';
   successLogin = true;
   loggedin$;
+  signupView;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,    
-    private SigninProvider: SignInService 
+    private SigninProvider: SignInService,
+    private SignupProvider: SignUpService 
   ) {
     this.loggedin$ = this.SigninProvider.signedin$;
+    this.signupView = true;
   }
 
   ngOnInit(): void {
@@ -53,8 +60,10 @@ export class AppComponent implements OnInit{
   }
 
   alertSuccessLogin(){
-    setTimeout(() =>{
-      this.successLogin = false;
-    }, 5000);
+    this.successLogin = false;
+  }
+
+  setLoginView() {
+    this.signupView = !this.signupView;
   }
 }

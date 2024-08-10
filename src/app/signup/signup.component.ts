@@ -1,30 +1,31 @@
 import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatInputModule } from '@angular/material/input';
-import { SignInService } from './signin.service';
-import { Observable, of } from 'rxjs';
+import { SignUpService } from './signup.service';
 
 @Component({
-  selector: 'app-signin',
+  selector: 'app-signup',
   standalone: true,
   imports: [ CommonModule, MatFormFieldModule, MatButtonModule,
     ReactiveFormsModule, MatInputModule],
-  templateUrl: './signin.component.html',
-  styleUrl: './signin.component.scss'
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss'
 })
-export class SignInComponent {
-  submitStatus = '';
+export class SignUpComponent {
   formulario: FormGroup;
+  signupErrorMsg: string;
   @Output() toggleView = new EventEmitter();
 
   constructor(
+    private SignupProvider: SignUpService,
     private formBuilder: FormBuilder,
-    private SigninProvider: SignInService
   ){
+    this.signupErrorMsg = '';
     this.formulario = this.formBuilder.group({
+      name: [null, Validators.required], 
       email: [null, Validators.compose([
         Validators.required, 
         Validators.email
@@ -33,20 +34,7 @@ export class SignInComponent {
     });
   }
 
-  onSubmit() {
-    this.submitStatus = this.formulario.status;
-    if (this.submitStatus !== 'VALID') return;
-    
-    this.SigninProvider.getAccessToken(this.formulario);
-    this.formulario.reset();
-  }
-
-  getErrorHint(control: string){
-    if(!this.formulario.controls[control].errors) return;
-    if (control === "email") return "Este campo é obrigatório";
-    if (control === "password") return "Favor informe uma senha";
-    return '';
-  }
+  onSubmit(){}
 
   setLoginView(){
     this.toggleView.emit();

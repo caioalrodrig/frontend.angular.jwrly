@@ -1,40 +1,43 @@
- <mat-toolbar *ngIf="(loggedin$ | async) === true">
-    <button mat-icon-button (click)="navigateTo('search')" [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
-      <mat-icon>{{ icon }}</mat-icon>
-    </button>
-    
-    <span class="spacer"> APIJewel</span>
-    <button value="submit" (click)="navigateTo('user')" mat-icon-button [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
-      <mat-icon>person</mat-icon>
-    </button>
-  </mat-toolbar>
+<mat-toolbar *ngIf="(loggedin$ | async) === true">
+  <button mat-icon-button (click)="navigateTo('search')" [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
+    <mat-icon>{{ icon }}</mat-icon>
+  </button>
+  
+  <span class="spacer"> APIJewel</span>
+  <button value="submit" (click)="navigateTo('user')" mat-icon-button [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
+    <mat-icon>person</mat-icon>
+  </button>
+</mat-toolbar>
 
-  <h4>Title </h4>
-  <div>
-    <mat-form-field>
-    <mat-select #classe (change)="0">
-        <mat-label style="color:aliceblue">Selecione uma classe:</mat-label>
-        <mat-option value="alert-success">Sucesso</mat-option>
-        <mat-option value="alert-info">Info</mat-option>
-        <mat-option value="alert-warning">Warning</mat-option >
-        <mat-option value="alert-danger">Erro</mat-option >
-    </mat-select> 
-    </mat-form-field>
-    <br><br>
+<h4>Title </h4>
+<div>
+  <mat-form-field>
+  <mat-select #classe (change)="0">
+      <mat-label style="color:aliceblue">Selecione uma classe:</mat-label>
+      <mat-option value="alert-success">Sucesso</mat-option>
+      <mat-option value="alert-info">Info</mat-option>
+      <mat-option value="alert-warning">Warning</mat-option >
+      <mat-option value="alert-danger">Erro</mat-option >
+  </mat-select> 
+  </mat-form-field>
+  <br><br>
 
-    <form>
-      <input #submitContent (change)="getForm(submitContent)" type="text" placeholder="Pesquisar">
-      <button mat-raised-button type="submit" name="action">Submit</button>
-    </form>
-    <div class="alert {{ classe.value }}" role="alert">Alerta </div>
-    <div [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">  Campo informado não permitido</div>
-  </div>
+  <form>
+    <input #submitContent (change)="getForm(submitContent)" type="text" placeholder="Pesquisar">
+    <button mat-raised-button type="submit" name="action">Submit</button>
+  </form>
+  <div class="alert {{ classe.value }}" role="alert">Alerta </div>
+  <div [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">  Campo informado não permitido</div>
+</div>
 
-  <app-signin *ngIf="(loggedin$ | async) !== true"></app-signin>
-  @if (loggedin$ | async){
-    <app-alert-dialog *ngIf="successLogin" (onInit)="alertSuccessLogin()"></app-alert-dialog>
-  }
 
-  <router-outlet></router-outlet>
+@if (!(loggedin$ | async); as notAuthenticated){
+  <app-signin (toggleView)="setLoginView()" *ngIf="notAuthenticated && !signupView"></app-signin>
+  <app-signup (toggleView)="setLoginView()" *ngIf="signupView"></app-signup>
+} @else {
+  <app-alert-dialog *ngIf="successLogin" (onInit)="alertSuccessLogin()"></app-alert-dialog>
+}
+
+<router-outlet></router-outlet>
 
 
