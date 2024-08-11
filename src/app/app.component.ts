@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,10 +16,11 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AppComponent,
+  imports: [AppComponent, 
     SignInComponent, SignUpComponent,
     AlertDialogComponent, MatIconModule,
-    CommonModule, RouterOutlet, MatButtonModule,
+    CommonModule, RouterOutlet,
+    MatButtonModule, MatCard,
     MatToolbarModule, MatSelectModule],
   exportAs: "backend",
   templateUrl: './app.component.html',

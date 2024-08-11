@@ -1,0 +1,33 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Import the Material Design typography and color palettes
+@import './m3-theme.scss';
+
+
+:root {
+  // Apply all component css dark theme by default
+  @include mat.all-component-themes($light-theme);
+  @include mat.system-level-colors($light-theme);
+  @include mat.system-level-typography($light-theme);
+  @include mat.typography-hierarchy($light-theme);
+}
+
+html,
+body,
+app-root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  touch-action: none;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
