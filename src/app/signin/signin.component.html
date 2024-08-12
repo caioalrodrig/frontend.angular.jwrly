@@ -1,21 +1,22 @@
 <form class="user-form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+  <h1>Faça o login</h1>
   <mat-form-field class="form-group">
       <mat-label for="email" class="control-mat-label">Email</mat-label>
       <input matInput type="text" formControlName="email" 
         id="email" placeholder="nome@email.com" >
       <mat-error>{{ getErrorHint("email") }}</mat-error>
-  </mat-form-field>  <br><br>
+  </mat-form-field>  
   
   <mat-form-field class="form-group" #signInError>
       <mat-label for="password" class="control-mat-label">Password</mat-label>
       <input matInput type="password" formControlName="password"
         id="password" placeholder="Enter your password">
       <mat-error>{{ getErrorHint("password") }}</mat-error>
-  </mat-form-field> <br><br>
+  </mat-form-field> 
 
-  <button mat-stroked-button type="submit">Sign in</button>
+  <button class="end" mat-flat-button type="submit">Próximo</button>
 </form>
 
-
-<p>Ainda não cadastrado? Crie uma conta</p>
+<br><br>
+<p>Novo por aqui? Crie uma conta</p>
 <button mat-stroked-button (click) ="setLoginView()">Criar conta</button>

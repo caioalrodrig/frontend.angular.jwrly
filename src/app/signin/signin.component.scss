@@ -1,0 +1,14 @@
+form{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button{
+  width: fit-content;
+
+  &.end{
+    align-self: flex-end;
+  }
+
+}

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { delay, Observable, Subject, tap, take, catchError, of } from 'rxjs';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignInService {
-  private readonly apiUrl = 'http://localhost:8080/signin';
+  private readonly apiUrl = `${environment.API_URL}/signin`;
   public bearerToken: string = '';
   public userId: string = '';
   

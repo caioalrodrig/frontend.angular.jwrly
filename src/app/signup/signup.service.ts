@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, tap, take, catchError, of, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpParams  } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignUpService {
-  private readonly apiUrl = 'http://localhost:8080/signup';
+  private readonly apiUrl = `${environment.API_URL}/signup`;
   
   public signedup$ = new BehaviorSubject(false);
 
