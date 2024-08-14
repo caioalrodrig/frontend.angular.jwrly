@@ -24,10 +24,10 @@ app-root {
 body {
   margin: 0;
   touch-action: none;
+  position: relative;
 }
 
 app-root {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 }

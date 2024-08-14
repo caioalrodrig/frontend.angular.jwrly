@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { delay, Observable, Subject, tap, take, catchError, of } from 'rxjs';
-import { HttpClient, HttpParams, HttpInterceptor  } from '@angular/common/http';
+import { delay, Observable, Subject, tap, take, catchError, of, BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment.development';
 
@@ -11,7 +11,7 @@ export class SignInService {
   private readonly apiUrl = `${environment.API_URL}/signin`;
   public sessionData: {[key: string]: any} = [];
   
-  public signedin$ = new Subject();
+  public signedin$ = new BehaviorSubject<boolean>(false);
 
   constructor( private http: HttpClient ) { }
 
@@ -23,7 +23,6 @@ export class SignInService {
   }
 
   getAccessToken(form: FormGroup){
-    
     this.postUser({
       email: form.controls['email'].value,
       password: form.controls['password'].value

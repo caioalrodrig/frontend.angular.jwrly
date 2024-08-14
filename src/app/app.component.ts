@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Router, ActivatedRoute, RouterOutlet, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +11,6 @@ import { SignInComponent } from './signin/signin.component';
 import { SignUpService } from './signup/signup.service';
 import { SignUpComponent } from './signup/signup.component';
 import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
-import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -27,12 +26,12 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent {
   icon = 'menu';
   currentRoute = '';
   successLogin = true;
+  signupView = true;
   loggedin$;
-  signupView;
 
   constructor(
     private router: Router,
@@ -41,14 +40,6 @@ export class AppComponent implements OnInit{
     private SignupProvider: SignUpService 
   ) {
     this.loggedin$ = this.SigninProvider.signedin$;
-    this.signupView = true;
-  }
-
-  ngOnInit(): void {
-  }
-
-  getForm(submiText: HTMLInputElement): void{
-    console.log(submiText.value);
   }
 
   navigateTo(subroute: string): void {
@@ -60,7 +51,8 @@ export class AppComponent implements OnInit{
   }
 
   alertSuccessLogin(){
-    this.successLogin = false;
+    setTimeout(() => { this.successLogin = false }, 4000);
+    this.router.navigate(['/home']);
   }
 
   setLoginView() {
