@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
+import { Router, ActivatedRoute, RouterOutlet, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,7 +19,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
   imports: [AppComponent, 
     SignInComponent, SignUpComponent,
     AlertDialogComponent, MatIconModule,
-    CommonModule, RouterOutlet,
+    CommonModule, RouterOutlet, RouterModule,
     MatButtonModule, MatCard,
     MatToolbarModule, MatSelectModule],
   exportAs: "backend",
@@ -56,9 +56,7 @@ export class AppComponent implements OnInit{
     this.currentRoute === '' ? this.currentRoute = `tab/${subroute}` 
      : this.currentRoute = '';
     this.router.navigate([this.currentRoute]);
-    console.log(this.SigninProvider.bearerToken);
-    console.log(this.SigninProvider.userId);
-
+    
   }
 
   alertSuccessLogin(){

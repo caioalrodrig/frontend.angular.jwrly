@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, Subject, tap, take, catchError, of } from 'rxjs';
-import { HttpClient, HttpParams  } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpInterceptor  } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment.development';
 
@@ -9,8 +9,7 @@ import { environment } from '../../environments/environment.development';
 })
 export class SignInService {
   private readonly apiUrl = `${environment.API_URL}/signin`;
-  public bearerToken: string = '';
-  public userId: string = '';
+  public sessionData: {[key: string]: any} = [];
   
   public signedin$ = new Subject();
 
@@ -34,7 +33,7 @@ export class SignInService {
         this.signedin$.next(false);
         return of();
       }),
-      tap(console.log),
+      tap( body => this.sessionData = body ),
       take(1)
     )
     .subscribe(() => {
