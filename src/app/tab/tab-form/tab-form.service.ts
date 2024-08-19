@@ -1,25 +1,42 @@
-import { HttpClient, HttpParams  } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+// import { environment } from '../../../environments/environment.development';
+// import { HttpClient, HttpParams  } from '@angular/common/http';
+// import { Injectable } from '@angular/core';
+// import { BehaviorSubject, map, Observable, take, tap } from 'rxjs';
+// import { TRelogiosPaginated } from '../../relogio/relogio.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class TabFormService {
-  private apiUrl = 'http://localhost:8080/relogios';
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class TabFormService {
+//   readonly apiUrl = `${environment.API_URL}/relogios`;
 
-  constructor( private http: HttpClient ) { }
+//   public relogiosResponse$ = new BehaviorSubject<TRelogiosPaginated>([[]]);
 
-  getData(): Observable<any> {
-    const paramsObject : { [key: string]: any } = {
-      page: 2,
-      limit: 5
-    };
+//   constructor( private http: HttpClient ) { }
+
+//   getRelogiosData(paramsObject: {[key: string]: any}){
    
-    const httpParams = new HttpParams()
-      .set('page', paramsObject['page'])      
-      .set('limit', paramsObject['limit'])  
+//     this.http.get<any>(this.apiUrl, 
+//       { params: new HttpParams()
+//         .set('page', paramsObject['page'])      
+//         .set('limit', paramsObject['limit'])   
+//       }
+//     )
+//     .pipe(
+//       map(res => {
+//         return res.map((item: any) => {
+//           return Object.entries(item).map(entry => [entry[0], entry[1] as string]);
+//         })
+//       }),
+//       take(1),
 
-    return this.http.get<any>(this.apiUrl, { params: httpParams });
-  }
-}
+//     )
+//     .subscribe({
+//       next: (res) => this.relogiosResponse$.next(res),
+//       error: (error) => {
+//         console.error(`Erro ao buscar dados: ${error}`);
+//       }
+//     });
+//   }
+
+// }
