@@ -10,8 +10,8 @@
 </mat-toolbar>
 
 <mat-card *ngIf="!(loggedin$ | async)" appearance="outlined"> 
-  <app-signin (toggleView)="setLoginView()" *ngIf="!signupView"></app-signin>
-  <app-signup (toggleView)="setLoginView()" *ngIf="signupView"></app-signup>
+  <app-signin (toggleView)="setLoginView()" *ngIf="!isOnSignupView"></app-signin>
+  <app-signup (toggleView)="setLoginView()" *ngIf="isOnSignupView"></app-signup>
 </mat-card>
 
 <app-alert-dialog *ngIf="successLogin && (loggedin$ | async)" (onInit)="alertSuccessLogin()"></app-alert-dialog>

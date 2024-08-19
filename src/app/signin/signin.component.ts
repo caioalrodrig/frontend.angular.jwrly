@@ -17,6 +17,7 @@ import { Observable, of } from 'rxjs';
 })
 export class SignInComponent {
   submitStatus = '';
+  loginErrorMsg = '';
   formulario: FormGroup;
   @Output() toggleView = new EventEmitter();
 
@@ -35,6 +36,8 @@ export class SignInComponent {
 
   onSubmit() {
     this.submitStatus = this.formulario.status;
+    this.loginErrorMsg = "Email ou senha inválidos";
+
     if (this.submitStatus !== 'VALID') return;
     
     this.SigninProvider.getAccessToken(this.formulario);
@@ -42,10 +45,11 @@ export class SignInComponent {
   }
 
   getErrorHint(control: string){
-    if(!this.formulario.controls[control].errors) return;
-    if (control === "email") return "Este campo é obrigatório";
-    if (control === "password") return "Favor informe uma senha";
-    return '';
+    if(!this.formulario.controls[control].errors)
+      return;
+    if (this.formulario.controls[control].value === "")
+      return "Este campo é obrigatório";
+    return `Insira um ${control} válido`;
   }
 
   setLoginView(){

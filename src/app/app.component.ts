@@ -30,7 +30,7 @@ export class AppComponent {
   icon = 'menu';
   currentRoute = '';
   successLogin = true;
-  signupView = true;
+  isOnSignupView = true;
   loggedin$;
 
   constructor(
@@ -43,9 +43,9 @@ export class AppComponent {
   }
 
   navigateTo(subroute: string): void {
-    this.currentRoute === '' ? this.icon = 'arrow_back' : this.icon = 'menu'; 
-    this.currentRoute === '' ? this.currentRoute = `tab/${subroute}` 
-     : this.currentRoute = '';
+    this.currentRoute === 'home' ? this.icon = 'arrow_back' : this.icon = 'menu'; 
+    this.currentRoute === 'home' ? this.currentRoute = `tab/${subroute}` 
+     : this.currentRoute = 'home';
     this.router.navigate([this.currentRoute]);
     
   }
@@ -56,6 +56,6 @@ export class AppComponent {
   }
 
   setLoginView() {
-    this.signupView = !this.signupView;
+    this.isOnSignupView = !this.isOnSignupView;
   }
 }
