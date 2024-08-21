@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
@@ -16,39 +17,51 @@ import { RelogioService } from './relogio.service';
   imports: [ JsonPipe, MatCardModule, MatChipsModule,
     CommonModule, ReactiveFormsModule,
     MatProgressBarModule, MatSelectModule,
-    MatInputModule
+    MatInputModule, MatPaginatorModule
   ],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './relogio.component.html',
   styleUrl: './relogio.component.scss'
 })
 
 export class RelogioComponent implements OnInit{
-  dataRes: string[][] = [[]];
+  enablePaginator$;
+  relogiosCount$
   dataRes$;
-  submitStatus = '';
+
+  dataRes: string[][] = [[]];
+  readonly ITEMS_PER_PAGE = 2;
+  pageIdx = 0;
 
   constructor(
-    private relogiosGet: RelogioService,
+    private RelogiosProvider: RelogioService,
   ){ 
-    this.dataRes$ = this.relogiosGet.relogiosResponse$;
+    this.dataRes$ = this.RelogiosProvider.relogiosResponse$;
+    this.enablePaginator$ = this.RelogiosProvider.successRes$;
+    this.relogiosCount$ = this.RelogiosProvider.count$;
   }
 
-  ngOnInit() {
-    this.relogiosGet.getRelogiosData(this.setPaginator());
+  ngOnInit() { 
+    if(this.relogiosCount$.getValue() == 0){ 
+      this.getRelogios();
+    }
   }
 
-  setPaginator(){
-    return {
-      page: 2,
-      limit: 2
-    };
+  getRelogios(){
+    this.RelogiosProvider.getRelogiosData({ 
+      page: this.pageIdx + 1, 
+      limit: this.ITEMS_PER_PAGE 
+    });
   }
 
   getCardTitle(cardRelogio: TRelogioCardData){
     return cardRelogio.filter((_, idx) => idx === 1 || idx === 2 || idx === 4) 
      .map(row => row[1])
      .join(" ");
+  }
+
+  handlePageChange(e: PageEvent){
+    this.pageIdx = e.pageIndex;
+    this.getRelogios();
   }
   
 }

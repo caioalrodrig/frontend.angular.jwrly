@@ -3,10 +3,22 @@
     <mat-card-title>{{ getCardTitle(cardRelogio) }}</mat-card-title>
   </mat-card-header>
 
-  <mat-card-footer>
-    <mat-chip-set *ngFor="let item of cardRelogio" aria-label="Relogio obtido" class="mat-mdc-chip-set-stacked">
-      <span> {{ item[0] }}</span>
-      <mat-chip>{{ item[1] }}</mat-chip>
-    </mat-chip-set>
+  <mat-card-footer #counter>
+    <mat-chip-set *ngFor="let item of cardRelogio; let i = index" aria-label="Relogio obtido" class="mat-mdc-chip-set-stacked">
+      @if (i > 0){
+        <span > {{ item[0] }}</span>
+        <mat-chip>{{ item[1] }}</mat-chip>
+      }
+      </mat-chip-set>
   </mat-card-footer>
 </mat-card>
+
+<mat-paginator #paginator
+               (page)="handlePageChange($event)"
+               [showFirstLastButtons]="true"
+               [disabled]="!(enablePaginator$ | async)"
+               [length]="relogiosCount$ | async"
+               [pageSize]="2"
+               [pageIndex]="pageIdx"
+               aria-label="Select page">
+</mat-paginator>
