@@ -1,1 +1,31 @@
-<p>Tab/search works</p>
+<mat-card>
+<hr>
+<form class="search-form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+  <br><br>
+  <mat-form-field class="form-group">
+      <mat-label for="model" class="control-mat-label">Modelo</mat-label>
+      <input matInput type="text" formControlName="model" 
+        id="model" placeholder="Tag Heuer" >
+  </mat-form-field>  
+  
+  <mat-form-field class="form-group" #signInError>
+      <mat-label for="brand" class="control-mat-label">Marca</mat-label>
+      <input matInput type="brand" formControlName="brand"
+        id="brand" placeholder="Burbair">
+  </mat-form-field> 
+  <label id="radio-group-label">Intervalo de preço:</label>
+  <mat-radio-group
+    formControlName="price"
+    aria-labelledby="watches-price-group-label"
+    class="radio-group">
+    <mat-radio-button value="under5000" class="radio-button">até $5,000</mat-radio-button>
+    <mat-radio-button value="5000to20000" class="radio-button">$5,000 a $20,000 </mat-radio-button>
+    <mat-radio-button value="over20000" class="radio-button">$20,000 ou mais</mat-radio-button>
+  </mat-radio-group> <br>
+
+  <button class="end" mat-flat-button type="submit">Próximo</button>
+  <br><br>
+</form>
+<hr>
+<app-search-bar></app-search-bar>
+</mat-card>

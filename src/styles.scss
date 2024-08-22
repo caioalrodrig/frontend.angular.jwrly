@@ -31,3 +31,17 @@ app-root {
   display: flex;
   flex-direction: column;
 }
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > * {
+    margin-bottom: 5px ; 
+  }
+}
+
+button{
+  width: fit-content;
+}

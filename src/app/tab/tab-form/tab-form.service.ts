@@ -1,14 +1,13 @@
-// import { environment } from '../../../environments/environment.development';
-// import { HttpClient, HttpParams  } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { BehaviorSubject, map, Observable, take, tap } from 'rxjs';
-// import { TRelogiosPaginated } from '../../relogio/relogio.interface';
+import { environment } from '../../../environments/environment.development';
+import { HttpClient, HttpParams  } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable, take, tap } from 'rxjs';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class TabFormService {
-//   readonly apiUrl = `${environment.API_URL}/relogios`;
+@Injectable({
+  providedIn: 'root'
+})
+export class TabFormService {
+  readonly apiUrl = `${environment.API_URL}/relogios`;
 
 //   public relogiosResponse$ = new BehaviorSubject<TRelogiosPaginated>([[]]);
 
@@ -39,4 +38,4 @@
 //     });
 //   }
 
-// }
+}
