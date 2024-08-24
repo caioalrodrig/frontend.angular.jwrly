@@ -1,12 +1,13 @@
-<form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form-group">
+<form class="form-group">
   <mat-form-field appearance="outline" class="form-group">
     <mat-label for="relogios" class="control-mat-label">Consultar</mat-label>
-    <input matInput type="text" [matAutocomplete]="auto" formControlName="relogios" id="relogio" placeholder="Título">
-    <mat-autocomplete #auto="matAutocomplete">
-      @for (option of ["Hi", "Hello", "Hey"]; track option) {
-        <mat-option [value]="option">{{option}}</mat-option>
-      }
+    <input matInput type="text" 
+      [matAutocomplete]="auto"
+      [formControl]="relogioQuery" 
+     id="relogio" placeholder="Título">
+    <mat-autocomplete  #auto="matAutocomplete" (optionSelected)="onSelection()">  
+        <mat-option *ngFor="let option of queryRelogio" [value]="option">{{option}}</mat-option>
     </mat-autocomplete>
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
-</form>
+</form> 

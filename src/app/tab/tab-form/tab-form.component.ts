@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -10,6 +10,7 @@ import { MatFormField } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab-detalhe',
@@ -28,9 +29,10 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
 export class TabFormComponent{
   formulario: FormGroup;
 
-
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
   ){
     this.formulario = this.formBuilder.group({
       model: [null],
@@ -41,5 +43,10 @@ export class TabFormComponent{
   
   onSubmit(){
     console.log(this.formulario.controls);
+    this.router.navigate(['relogios']);    
+  }
+
+  onFieldSelection(){
+    this.router.navigate(['relogios']);    
   }
 }

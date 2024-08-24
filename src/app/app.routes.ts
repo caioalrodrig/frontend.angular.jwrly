@@ -13,7 +13,7 @@ export const routes: Routes = [
     canActivate: [authGuard]},
   { path: 'relogios',
     loadChildren: () => import('./relogio/relogio.routes').then( m => m.routes ),
-    canActivate: [authGuard]}
+    /*canActivate: [authGuard]*/}
 ];
 
 export const routing: ModuleWithProviders<RouterModule> = RouterModule.forRoot(routes);
