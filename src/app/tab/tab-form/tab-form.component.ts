@@ -41,12 +41,29 @@ export class TabFormComponent{
     });
   }
   
-  onSubmit(){
-    console.log(this.formulario.controls);
-    this.router.navigate(['relogios']);    
+  onSubmit() {  
+    const { model, brand, price } = this.formulario.controls;
+    
+    const [ priceMin, priceMax ] = price.value ? price.value.split('&') : [null, null];
+    
+    this.router.navigate(['relogios'], {
+      queryParams: {
+        model: model.value,
+        brand: brand.value,
+        priceMin: priceMin ? priceMin : 1,
+        priceMax: priceMax ? priceMax : 99999,
+        page: 1
+      }
+    });
   }
 
-  onFieldSelection(){
-    this.router.navigate(['relogios']);    
+  onFieldSelection(fieldValue: string){
+        
+    this.router.navigate(['relogios'], {
+      queryParams: {
+        title: fieldValue,
+        page: 1
+      }
+    });    
   }
 }

@@ -13,19 +13,19 @@
       <input matInput type="brand" formControlName="brand"
         id="brand" placeholder="Burbair">
   </mat-form-field> 
-  <label id="radio-group-label">Intervalo de preço:</label>
+  <label id="watches-price-group-label">Intervalo de preço:</label>
   <mat-radio-group
     formControlName="price"
     aria-labelledby="watches-price-group-label"
     class="radio-group">
-    <mat-radio-button value="under5000" class="radio-button">até $5,000</mat-radio-button>
-    <mat-radio-button value="5000to20000" class="radio-button">$5,000 a $20,000 </mat-radio-button>
-    <mat-radio-button value="over20000" class="radio-button">$20,000 ou mais</mat-radio-button>
+    <mat-radio-button value="&5000" class="radio-button">até $5,000</mat-radio-button>
+    <mat-radio-button value="5000&20000" class="radio-button">$5,000 a $20,000 </mat-radio-button>
+    <mat-radio-button value="20000&" class="radio-button">$20,000 ou mais</mat-radio-button>
   </mat-radio-group> <br>
 
   <button class="end" mat-flat-button type="submit">Próximo</button>
   <br><br>
 </form>
 <hr>
-<app-search-bar (fieldSelected)="onFieldSelection()"></app-search-bar>
+<app-search-bar (fieldSelected)="onFieldSelection($event)"></app-search-bar>
 </mat-card>

@@ -4,7 +4,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatIcon } from '@angular/material/icon';
 import { debounceTime, distinctUntilChanged, Observable, switchMap } from 'rxjs';
 import { SearchBarService } from './search-bar.service';
@@ -22,7 +22,7 @@ import { SearchBarService } from './search-bar.service';
 export class SearchBarComponent implements OnInit{
   queryRelogio: string[] = [''];
 
-  @Output() fieldSelected = new EventEmitter();
+  @Output() fieldSelected = new EventEmitter<string>();
 
   relogioQuery = new FormControl('');
   results$ = new Observable();
@@ -41,12 +41,12 @@ export class SearchBarComponent implements OnInit{
           title: value
         }))
       )
-      .subscribe( { next: res => this.queryRelogio = res }      );
+      .subscribe( { next: res => this.queryRelogio = res } );
   }
 
-  onSelection(){
+  onSelection(fieldEvent: MatAutocompleteSelectedEvent){
     if(this.queryRelogio[0] === '') return;
-      this.fieldSelected.emit();
+      this.fieldSelected.emit(fieldEvent.option.value);
   }
 
 }

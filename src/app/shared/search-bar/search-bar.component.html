@@ -5,7 +5,7 @@
       [matAutocomplete]="auto"
       [formControl]="relogioQuery" 
      id="relogio" placeholder="Título">
-    <mat-autocomplete  #auto="matAutocomplete" (optionSelected)="onSelection()">  
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelection($event)">  
         <mat-option *ngFor="let option of queryRelogio" [value]="option">{{option}}</mat-option>
     </mat-autocomplete>
     <mat-icon matSuffix>search</mat-icon>
