@@ -14,7 +14,11 @@
   <app-signup (toggleView)="setLoginView()" *ngIf="isOnSignupView"></app-signup>
 </mat-card>
 
-<app-alert-dialog *ngIf="successLogin && (loggedin$ | async)" (onInit)="alertSuccessLogin()"></app-alert-dialog>
+<app-alert-dialog *ngIf="successLogin && (loggedin$ | async)" 
+ [title]="'Bem vindo, user'"
+ [content]="'Que tal começar pesquisando por um modelo de relógio?'"
+ (onInit)="alertSuccessLogin()">
+</app-alert-dialog>
 
 
 <router-outlet></router-outlet>

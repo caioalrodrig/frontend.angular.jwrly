@@ -9,8 +9,6 @@ import { BehaviorSubject, catchError, map, of, take, tap } from 'rxjs';
 export class RelogioService {
   readonly apiUrl = `${environment.API_URL}/relogios`;
 
-  public count$ = new BehaviorSubject<number>(0);
-
   constructor( private http: HttpClient ) { }
 
   getRelogiosData(paramsObject: {[key: string]: any}){
@@ -23,11 +21,12 @@ export class RelogioService {
     return this.http.get<any>(this.apiUrl, { params: params })
     .pipe(
       catchError(error => {return of([[]])}),
-      tap(res => this.count$.next(res.count)),
       map(res => {
-        return res.entries.map((item: any) => {
-          return Object.entries(item).map(entry => [entry[0], entry[1] as string]);
-        })
+        if(res.entries.length > 0){
+          return res.entries.map((item: any) => {
+            return Object.entries(item).map(entry => [entry[0], entry[1] as string]);
+          })
+        }
       })
 
     )

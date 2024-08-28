@@ -13,12 +13,19 @@
   </mat-card-footer>
 </mat-card>
 
-<mat-paginator #paginator
+<app-alert-dialog *ngIf="(count$ | async) == 0"
+  [title]="'Não encontrado'"
+  [content]="'Sua pesquisa não obteve sucesso. Tente novamente'"
+  (onInit)="getResultsNotFound()">
+</app-alert-dialog>
+
+<mat-paginator *ngIf="count$ | async; let count"
+               #paginator
                (page)="handlePageChange($event)"
                [showFirstLastButtons]="true"
                [disabled]="!(successRes$ | async)"
-               [length]="count$ | async"
-               [pageSize]="2"
+               [length]="count"
+               [pageSize]="ITEMS_PER_PAGE"
                [pageIndex]="pageIdx - 1"
                aria-label="Select page">
 </mat-paginator>

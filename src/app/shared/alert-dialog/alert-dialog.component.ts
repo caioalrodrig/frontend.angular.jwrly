@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {
   MatDialog,
@@ -23,6 +23,9 @@ export class AlertDialogComponent implements OnInit {
 
   dialogRef: MatDialogRef<DialogViewComponent> | null = null;
 
+  @Input() title = '';
+  @Input() content = '';
+
   @Output() onInit = new EventEmitter();
 
   ngOnInit() {
@@ -34,22 +37,32 @@ export class AlertDialogComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialogRef = this.dialog.open(DialogViewComponent);
+    this.dialogRef = this.dialog.open(DialogViewComponent, { data: { title: this.title,
+      content: this.content
+     }
+    });
   }
 }
+
+import {Inject} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 @Component({
   selector: 'dialog-view',
   template: `
-    <h2 mat-dialog-title>Bem vindo, user</h2>
+    <h2 mat-dialog-title>{{data.title}}</h2>
     <mat-dialog-content>
-      <p>Que tal começar pesquisando por um relógio?</p>
+      <p>{{data.content}}</p>
     </mat-dialog-content>
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Dispensar</button>
     </mat-dialog-actions>
   `,
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, CommonModule],
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, 
+    MatDialogClose, MatButtonModule, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DialogViewComponent {}
+export class DialogViewComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+}

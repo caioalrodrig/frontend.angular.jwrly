@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
+import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TRelogioCardData } from './relogio.interface';
+import { AlertDialogComponent } from '../shared/alert-dialog/alert-dialog.component';
 import { RelogioService } from './relogio.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, catchError, filter, map, Observable, of, Subject, take, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Subject, tap } from 'rxjs';
 import { TRelogiosPaginated } from './relogio.interface';
 
 @Component({
@@ -20,7 +20,7 @@ import { TRelogiosPaginated } from './relogio.interface';
   imports: [ JsonPipe, MatCardModule, MatChipsModule,
     CommonModule, ReactiveFormsModule,
     MatProgressBarModule, MatSelectModule,
-    MatInputModule, MatPaginatorModule
+    MatInputModule, MatPaginatorModule, AlertDialogComponent
   ],
   templateUrl: './relogio.component.html',
   styleUrl: './relogio.component.scss'
@@ -31,7 +31,7 @@ export class RelogioComponent implements OnInit{
 
   successRes$ = new Subject<boolean>();
 
-  count$ = new BehaviorSubject<number>(0);
+  count$ = new BehaviorSubject<number>(-1);
 
   dataRes: string[][] = [[]];
   readonly ITEMS_PER_PAGE = 2;
@@ -41,9 +41,7 @@ export class RelogioComponent implements OnInit{
     private RelogiosProvider: RelogioService,
     private route: ActivatedRoute,
     private router: Router
-  ){
-    this.count$ = RelogiosProvider.count$;
-  }
+  ){ }
 
   ngOnInit() {     
     this.route.queryParams
@@ -57,6 +55,7 @@ export class RelogioComponent implements OnInit{
      )
      .subscribe(params => {   
       this.RelogiosProvider.getRelogiosData(params)
+       .pipe( tap(res => { if (res === undefined) this.count$.next(0) }))
        .subscribe({
         next: (res) => {
           this.relogiosResponse$.next(res);
@@ -65,7 +64,7 @@ export class RelogioComponent implements OnInit{
         error: (error) => {
           console.error(`Erro ao buscar dados: ${error}`);
           this.successRes$.next(false);
-          this.count$.next(0);
+          this.count$.next(-1);
         }});
     });
   }
@@ -84,5 +83,10 @@ export class RelogioComponent implements OnInit{
       queryParamsHandling: 'merge', 
     
     });
+  }
+
+  getResultsNotFound(){
+    setTimeout(() => { this.router.navigate(['tab/search']) }, 2000);
+  
   }
 }

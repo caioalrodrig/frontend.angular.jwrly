@@ -58,7 +58,7 @@ export class TabFormComponent{
   }
 
   onFieldSelection(fieldValue: string){
-        
+          
     this.router.navigate(['relogios'], {
       queryParams: {
         title: fieldValue,
