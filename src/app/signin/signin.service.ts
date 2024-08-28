@@ -3,14 +3,18 @@ import { delay, Observable, Subject, tap, take, catchError, of, BehaviorSubject 
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment.development';
+import { IUserSession } from './signin.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignInService {
   private readonly apiUrl = `${environment.API_URL}/signin`;
-  public sessionData: {[key: string]: any} = [];
   
+  public sessionData$ = new BehaviorSubject<IUserSession>({name: '', uid: 0, bearer: ''});
+  
+  public sessionData: IUserSession = {name: '', uid: 0, bearer: ''};
+
   public signedin$ = new BehaviorSubject<boolean>(false);
 
   constructor( private http: HttpClient ) { }
@@ -32,7 +36,9 @@ export class SignInService {
         this.signedin$.next(false);
         return of();
       }),
-      tap( body => this.sessionData = body ),
+      tap( res => { this.sessionData$.next(res);
+        this.sessionData = res;
+      }),
       take(1)
     )
     .subscribe(() => {

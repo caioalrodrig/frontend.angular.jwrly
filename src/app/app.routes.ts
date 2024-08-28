@@ -3,8 +3,12 @@ import { RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 import { AppComponent } from './app.component';
 import { authGuard } from './shared/guards/auth.guard';
+import { SignInComponent } from './signin/signin.component';
+import { SignUpComponent } from './signup/signup.component';
 
 export const routes: Routes = [
+  { path: 'signin', component: SignInComponent},    
+  { path: 'signup', component: SignUpComponent},
   { path: 'tab', 
     loadChildren: () => import('./tab/tab.routes').then( t => t.routes ),
     /*canActivate: [authGuard]*/ },    

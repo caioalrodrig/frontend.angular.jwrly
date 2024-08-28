@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { SignInService } from '../../signin/signin.service';
 
 export function ensureAuthInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
-  const authToken = inject(SignInService).sessionData['bearer'];
+  const authToken = inject(SignInService).sessionData.bearer;
 
   if( authToken === undefined){ 
     return next(req);

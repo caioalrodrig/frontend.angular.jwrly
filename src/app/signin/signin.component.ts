@@ -4,14 +4,16 @@ import {  MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatInputModule } from '@angular/material/input';
+import { MatCard } from '@angular/material/card';
 import { SignInService } from './signin.service';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
   standalone: true,
   imports: [ CommonModule, MatFormFieldModule, MatButtonModule,
-    ReactiveFormsModule, MatInputModule],
+    ReactiveFormsModule, MatInputModule, MatCard],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.scss'
 })
@@ -19,11 +21,11 @@ export class SignInComponent {
   submitStatus = '';
   loginErrorMsg = '';
   formulario: FormGroup;
-  @Output() toggleView = new EventEmitter();
-
+  
   constructor(
     private formBuilder: FormBuilder,
-    private SigninProvider: SignInService
+    private SigninProvider: SignInService,
+    private router: Router
   ){
     this.formulario = this.formBuilder.group({
       email: [null, Validators.compose([
@@ -53,6 +55,6 @@ export class SignInComponent {
   }
 
   setLoginView(){
-    this.toggleView.emit();
+    this.router.navigate(['/signup']);
   }
 }

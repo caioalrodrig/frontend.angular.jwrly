@@ -6,6 +6,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ensureAuthInterceptor } from './shared/interceptors/ensure-auth.interceptor';
+import { authExpiredInterceptor } from './shared/interceptors/auth-expired.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
@@ -13,5 +14,5 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch(), 
-      withInterceptors([ensureAuthInterceptor]))]
+      withInterceptors([ensureAuthInterceptor, authExpiredInterceptor]))]
 };

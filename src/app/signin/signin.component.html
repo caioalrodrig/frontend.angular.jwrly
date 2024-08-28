@@ -1,4 +1,5 @@
-<form class="user-form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+<mat-card>
+  <form class="user-form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
   <h1>Faça o login</h1>
   <br><br>
   <mat-form-field class="form-group">
@@ -23,3 +24,4 @@
 <br><br>
 <p>Novo por aqui? Crie uma conta</p>
 <button mat-stroked-button (click) ="setLoginView()">Criar conta</button>
+</mat-card>

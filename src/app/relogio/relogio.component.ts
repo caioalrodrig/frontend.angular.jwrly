@@ -55,7 +55,7 @@ export class RelogioComponent implements OnInit{
      )
      .subscribe(params => {   
       this.RelogiosProvider.getRelogiosData(params)
-       .pipe( tap(res => { if (res === undefined) this.count$.next(0) }))
+       .pipe( tap(res => { if (res === undefined) this.count$.next(-1) }))
        .subscribe({
         next: (res) => {
           this.relogiosResponse$.next(res);

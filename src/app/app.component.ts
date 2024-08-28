@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Router, ActivatedRoute, RouterOutlet, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,9 +8,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { SignInService } from './signin/signin.service';
 import { SignInComponent } from './signin/signin.component';
+import { IUserSession } from './signin/signin.interface';
 import { SignUpService } from './signup/signup.service';
 import { SignUpComponent } from './signup/signup.component';
 import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -26,11 +28,15 @@ import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.compone
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   icon = 'menu';
   currentRoute = '';
-  successLogin = true;
-  isOnSignupView = true;
+
+  signInMsg = '';
+  successLogin = false;
+  sessionData!: IUserSession;
+  sessionData$;
+
   loggedin$;
 
   constructor(
@@ -40,6 +46,17 @@ export class AppComponent {
     private SignupProvider: SignUpService 
   ) {
     this.loggedin$ = this.SigninProvider.signedin$;
+    this.sessionData$ = this.SigninProvider.sessionData$;
+    this.router.navigate(['signup']);
+  }
+
+  ngOnInit() {
+    this.sessionData$
+     .pipe( tap(res => { this.sessionData = res; 
+      this.signInMsg = `Bem vindo ${this.sessionData.uid}`;
+     }))
+     .subscribe();
+         
   }
 
   navigateTo(subroute: string): void {
@@ -51,11 +68,9 @@ export class AppComponent {
   }
 
   alertSuccessLogin(){
-    setTimeout(() => { this.successLogin = false }, 4000);
+    setTimeout(() => { this.successLogin = true }, 4000);
     this.router.navigate(['/home']);
+     
   }
 
-  setLoginView() {
-    this.isOnSignupView = !this.isOnSignupView;
-  }
 }

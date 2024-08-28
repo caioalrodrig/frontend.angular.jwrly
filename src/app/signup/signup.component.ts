@@ -2,16 +2,18 @@ import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCard } from '@angular/material/card';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatInputModule } from '@angular/material/input';
 import { SignUpService } from './signup.service';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [ CommonModule, MatFormFieldModule, MatButtonModule,
-    ReactiveFormsModule, MatInputModule],
+    ReactiveFormsModule, MatInputModule, MatCard],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
@@ -25,6 +27,7 @@ export class SignUpComponent {
   constructor(
     private SignupProvider: SignUpService,
     private formBuilder: FormBuilder,
+    private router: Router
   ){
     this.signupErrorMsg$ = this.SignupProvider.signupMsg$;
     this.formulario = this.formBuilder.group({
@@ -44,11 +47,6 @@ export class SignUpComponent {
     this.SignupProvider.getCreateUserResponse(this.formulario);
   }
 
-  setLoginView(){
-    this.signupErrorMsg$.next("");
-    this.toggleView.emit();
-  }
-
   getErrorHint(control: string){
     if( !this.formulario.controls[control].errors ) return;
     if ( this.formulario.controls[control].value === "" )
@@ -56,4 +54,7 @@ export class SignUpComponent {
     return `Insira um ${control} válido`;
   }
 
+  setLoginView(){
+    this.router.navigate(['/signin']);
+  }
 }

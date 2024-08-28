@@ -21,6 +21,14 @@ app-root {
   height: 100%;
 }
 
+mat-card{
+  align-self: center;
+  padding: 30px;
+  width: fit-content;
+  position: absolute;
+  top: 150px;
+}
+
 body {
   margin: 0;
   touch-action: none;
