@@ -9,16 +9,16 @@ export function authExpiredInterceptor(req: HttpRequest<unknown>, next: HttpHand
   const router = inject(Router);
 
   if( authToken === '' ){ 
-    router.navigate(['signup']); // debugar aqui
+    // router.navigate(['signup']); // debugar aqui
     return next(req);
   }
-
-  return next(req).pipe(
-    tap(event => {
-      if (event.type === HttpEventType.Response && event.status === 401 ) {
-        console.log("aaaa");
-        router.navigate(['signup']);
-      }
-    })
-  );
+  return next(req);
+  // return next(req).pipe(
+  //   tap(event => {
+  //     if (event.type === HttpEventType.Response && event.status === 401 ) {
+  //       console.log("aaaa");
+  //       router.navigate(['signup']);
+  //     }
+  //   })
+  //);
 };

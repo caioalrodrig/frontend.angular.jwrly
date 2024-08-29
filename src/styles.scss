@@ -1,5 +1,7 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
+@use './styles-theme' as theme-styled;
+
 
 @include mat.core();
 
@@ -13,6 +15,8 @@
   @include mat.system-level-colors($light-theme);
   @include mat.system-level-typography($light-theme);
   @include mat.typography-hierarchy($light-theme);
+  @include theme-styled.theme($light-theme);
+
 }
 
 html,
@@ -21,35 +25,25 @@ app-root {
   height: 100%;
 }
 
-mat-card{
-  align-self: center;
-  padding: 30px;
-  width: fit-content;
-  position: absolute;
-  top: 150px;
-}
-
 body {
   margin: 0;
   touch-action: none;
-  position: relative;
 }
 
 app-root {
   display: flex;
+  width: 100%;
+  position: relative;
   flex-direction: column;
+  align-items: center;
 }
 
-form{
+mat-card {
+  padding: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  top: 50px;
 
-  > * {
-    margin-bottom: 5px ; 
-  }
-}
-
-button{
-  width: fit-content;
 }

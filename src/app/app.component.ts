@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { Router, ActivatedRoute, RouterOutlet, RouterModule } from '@angular/router';
+import { Router, ActivatedRoute, RouterOutlet, RouterModule, UrlSegment } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,7 +12,7 @@ import { IUserSession } from './signin/signin.interface';
 import { SignUpService } from './signup/signup.service';
 import { SignUpComponent } from './signup/signup.component';
 import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
-import { tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +30,9 @@ import { tap } from 'rxjs';
 
 export class AppComponent implements OnInit {
   icon = 'menu';
-  currentRoute = '';
+
+  routeBuffer: string = '/home';
+  routeCurrent: string = '/home';
 
   signInMsg = '';
   successLogin = false;
@@ -47,7 +49,7 @@ export class AppComponent implements OnInit {
   ) {
     this.loggedin$ = this.SigninProvider.signedin$;
     this.sessionData$ = this.SigninProvider.sessionData$;
-    this.router.navigate(['signup']);
+    // this.router.navigate(['signup']);
   }
 
   ngOnInit() {
@@ -56,14 +58,20 @@ export class AppComponent implements OnInit {
       this.signInMsg = `Bem vindo ${this.sessionData.uid}`;
      }))
      .subscribe();
-         
+   
   }
 
-  navigateTo(subroute: string): void {
-    this.currentRoute === 'home' ? this.icon = 'arrow_back' : this.icon = 'menu'; 
-    this.currentRoute === 'home' ? this.currentRoute = `tab/${subroute}` 
-     : this.currentRoute = 'home';
-    this.router.navigate([this.currentRoute]);
+  navigateTo(buttonId: string): void {
+    this.routeCurrent = decodeURIComponent(this.router.url).split('?')[0];
+    
+    if( buttonId != this.routeCurrent ){
+      this.routeBuffer = this.routeCurrent;
+      this.router.navigate([buttonId]);
+    } else{
+      let auxRoute = this.routeBuffer;
+      this.routeBuffer = this.routeCurrent;
+      this.router.navigate([auxRoute]);
+    }
     
   }
 

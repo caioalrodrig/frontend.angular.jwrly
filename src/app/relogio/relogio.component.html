@@ -3,7 +3,7 @@
     <mat-card-title>{{ getCardTitle(cardRelogio) }}</mat-card-title>
   </mat-card-header>
 
-  <mat-card-footer #counter>
+  <mat-card-footer>
     <mat-chip-set *ngFor="let item of cardRelogio; let i = index" aria-label="Relogio obtido" class="mat-mdc-chip-set-stacked">
       @if (i > 0 && i < item[0].length){
         <span > {{ item[0] }}</span>
@@ -19,6 +19,7 @@
   (onInit)="getResultsNotFound()">
 </app-alert-dialog>
 
+<br><br>
 <mat-paginator *ngIf="count$ | async; let count"
                #paginator
                (page)="handlePageChange($event)"
@@ -29,3 +30,5 @@
                [pageIndex]="pageIdx - 1"
                aria-label="Select page">
 </mat-paginator>
+<br><br>
+<p> {{count$ | async}}</p>

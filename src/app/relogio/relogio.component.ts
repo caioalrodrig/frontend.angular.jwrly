@@ -60,6 +60,7 @@ export class RelogioComponent implements OnInit{
         next: (res) => {
           this.relogiosResponse$.next(res);
           this.successRes$.next(true);
+          
         },
         error: (error) => {
           console.error(`Erro ao buscar dados: ${error}`);

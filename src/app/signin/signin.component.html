@@ -1,5 +1,4 @@
-<mat-card>
-  <form class="user-form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+<form class="user-form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
   <h1>Faça o login</h1>
   <br><br>
   <mat-form-field class="form-group">
@@ -18,10 +17,11 @@
 
   </mat-form-field> 
   <p>{{ loginErrorMsg }}</p>
-  <button class="end" mat-flat-button type="submit">Próximo</button>
+  <button class="primary" mat-flat-button type="submit">Próximo</button>
 </form>
 
 <br><br>
+<nav>
 <p>Novo por aqui? Crie uma conta</p>
-<button mat-stroked-button (click) ="setLoginView()">Criar conta</button>
-</mat-card>
+<button class="tertiary" mat-stroked-button (click) ="setLoginView()">Criar conta</button>
+</nav>

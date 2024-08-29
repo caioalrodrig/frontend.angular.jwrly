@@ -1,6 +1,5 @@
-<mat-card>
-<hr>
 <form class="search-form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+  <hr>
   <br><br>
   <mat-form-field class="form-group">
       <mat-label for="model" class="control-mat-label">Modelo</mat-label>
@@ -25,7 +24,6 @@
 
   <button class="end" mat-flat-button type="submit">Próximo</button>
   <br><br>
+  <hr>
 </form>
-<hr>
 <app-search-bar (fieldSelected)="onFieldSelection($event)"></app-search-bar>
-</mat-card>

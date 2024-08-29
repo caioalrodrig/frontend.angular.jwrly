@@ -1,4 +1,4 @@
-form{
+form, nav{
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -10,8 +10,8 @@ form{
 
 button{
   width: fit-content;
-
-  &.end{
+  align-self: center;
+  &.primary{
     align-self: flex-end;
   }
 

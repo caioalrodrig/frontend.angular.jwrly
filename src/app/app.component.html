@@ -1,21 +1,21 @@
 <mat-toolbar *ngIf="(loggedin$ | async) === true">
-  <button mat-icon-button (click)="navigateTo('search')" [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
+  <button mat-icon-button (click)="navigateTo('/tab/search')" [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
     <mat-icon>{{ icon }}</mat-icon>
   </button>
   
   <span class="spacer"> APIJewel</span>
-  <button value="submit" (click)="navigateTo('user')" mat-icon-button [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
+  <button value="submit" (click)="navigateTo('/tab/user')" mat-icon-button [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
     <mat-icon>person</mat-icon>
   </button>
 </mat-toolbar>
+<mat-card>
+  <app-alert-dialog *ngIf="!successLogin && (loggedin$ | async)" 
+  [title]="signInMsg"
+  [content]="'Que tal começar pesquisando por um modelo de relógio?'"
+  (onInit)="alertSuccessLogin()">
+  </app-alert-dialog>
 
-<app-alert-dialog *ngIf="!successLogin && (loggedin$ | async)" 
- [title]="signInMsg"
- [content]="'Que tal começar pesquisando por um modelo de relógio?'"
- (onInit)="alertSuccessLogin()">
-</app-alert-dialog>
 
-
-<router-outlet></router-outlet>
-
+  <router-outlet></router-outlet>
+</mat-card>
 
