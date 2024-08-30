@@ -1,6 +1,7 @@
 <form class="search-form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
-  <hr>
-  <br><br>
+  <hr class="hr1">
+  <span class="subheader1">Busca Avançada</span>
+  <br><br><br>
   <mat-form-field class="form-group">
       <mat-label for="model" class="control-mat-label">Modelo</mat-label>
       <input matInput type="text" formControlName="model" 
@@ -24,6 +25,8 @@
 
   <button class="end" mat-flat-button type="submit">Próximo</button>
   <br><br>
-  <hr>
+  <hr class="hr2">
+  <span class="subheader2">Busca simples</span>
 </form>
+<br>
 <app-search-bar (fieldSelected)="onFieldSelection($event)"></app-search-bar>

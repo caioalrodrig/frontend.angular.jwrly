@@ -29,10 +29,11 @@ import { BehaviorSubject, tap } from 'rxjs';
 })
 
 export class AppComponent implements OnInit {
+  readonly homeUrl = '/home'
   icon = 'menu';
 
-  routeBuffer: string = '/home';
-  routeCurrent: string = '/home';
+  routeBuffer: string = this.homeUrl;
+  routeCurrent: string = this.homeUrl;
 
   signInMsg = '';
   successLogin = false;

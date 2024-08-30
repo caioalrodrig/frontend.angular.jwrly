@@ -4,12 +4,12 @@
   </mat-card-header>
 
   <mat-card-footer>
-    <mat-chip-set *ngFor="let item of cardRelogio; let i = index" aria-label="Relogio obtido" class="mat-mdc-chip-set-stacked">
-      @if (i > 0 && i < item[0].length){
-        <span > {{ item[0] }}</span>
-        <mat-chip>{{ item[1] }}</mat-chip>
-      }
-      </mat-chip-set>
+    <mat-chip-set>
+    <div *ngFor="let item of cardRelogio; let i = index" aria-label="Relogio obtido" class="chip-col">
+      <span *ngIf="i > 0 && i < item[0].length">{{ cardAttributes[i] }}</span>
+      <mat-chip *ngIf="i > 0 && i < item[0].length">{{ item[1] }}</mat-chip>
+    </div>
+    </mat-chip-set>
   </mat-card-footer>
 </mat-card>
 

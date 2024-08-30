@@ -14,7 +14,7 @@ export const routes: Routes = [
     /*canActivate: [authGuard]*/ },    
   { path: 'home', 
     loadChildren: () => import('./home/home.routes').then( m => m.routes ),
-    canActivate: [authGuard]},
+    /*canActivate: [authGuard]*/},
   { path: 'relogios',
     loadChildren: () => import('./relogio/relogio.routes').then( m => m.routes ),
     /*canActivate: [authGuard]*/}

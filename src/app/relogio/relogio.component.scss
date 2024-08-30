@@ -1,16 +1,28 @@
-mat-card {
-  max-width: 400px;
+mat-card{
+  padding-top: 10px;
+  padding-bottom: 10px
+}
+div.chip-col{
+  display: flex;
+  flex-direction: column;
 }
 
 mat-card-footer {
   padding: 16px;
 }
-mat-chip-set {
-  width: 200px;
 
+mat-chip-set {
+  max-width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  
   & label {
     opacity: 0.4;
     font-size: small;
     color: #FFFFFF;
   }
+  mat-chip{
+    width:fit-content;
+  }
 }
+

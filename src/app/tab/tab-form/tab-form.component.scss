@@ -7,7 +7,26 @@ hr{
   width: 250px;
   margin: 20px 0;
   position: absolute;
+
+}
+
+.hr1{
   top: 0px;
+}
+.hr2{
+  bottom: 10px;
+}
+
+span{
+  font-size: small;
+  position: absolute;
+}
+
+span.subheader1{
+  top: 20px;
+}
+span.subheader2{
+  bottom: -12px;
 }
 
 form{

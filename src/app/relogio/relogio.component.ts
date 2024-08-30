@@ -11,7 +11,7 @@ import { TRelogioCardData } from './relogio.interface';
 import { AlertDialogComponent } from '../shared/alert-dialog/alert-dialog.component';
 import { RelogioService } from './relogio.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, Subject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Subject, take, tap } from 'rxjs';
 import { TRelogiosPaginated } from './relogio.interface';
 
 @Component({
@@ -27,6 +27,8 @@ import { TRelogiosPaginated } from './relogio.interface';
 })    
 
 export class RelogioComponent implements OnInit{
+  readonly cardAttributes = ['','Modelo', 'Marca', 'Preço', 'Pulseira', 'Case'];
+
   relogiosResponse$ = new BehaviorSubject<TRelogiosPaginated>([[[]]]);
 
   successRes$ = new Subject<boolean>();
@@ -46,16 +48,20 @@ export class RelogioComponent implements OnInit{
   ngOnInit() {     
     this.route.queryParams
      .pipe(
+      tap(params => {  params ? params : this.router.navigate(['tab/search'])}),
       tap(params => this.pageIdx = Number(params['page']) ),
       map(params => {
         let newParams = {... params};
         newParams['limit'] = this.ITEMS_PER_PAGE;
         return newParams;
       }),
+      take(1)
      )
      .subscribe(params => {   
       this.RelogiosProvider.getRelogiosData(params)
-       .pipe( tap(res => { if (res === undefined) this.count$.next(-1) }))
+       .pipe( tap(res => { if (res === undefined) this.count$.next(-1) }),
+        take(1) 
+       )
        .subscribe({
         next: (res) => {
           this.relogiosResponse$.next(res);

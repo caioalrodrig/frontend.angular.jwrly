@@ -39,11 +39,18 @@ app-root {
 }
 
 mat-card {
+  min-width: 250px;
   padding: 60px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
   top: 50px;
 
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
 }
