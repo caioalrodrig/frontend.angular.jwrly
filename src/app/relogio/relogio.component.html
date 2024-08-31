@@ -6,7 +6,7 @@
   <mat-card-footer>
     <mat-chip-set>
     <div *ngFor="let item of cardRelogio; let i = index" aria-label="Relogio obtido" class="chip-col">
-      <span *ngIf="i > 0 && i < item[0].length">{{ cardAttributes[i] }}</span>
+      <span *ngIf="i > 0 && i < item[0].length">{{ cardAttributesPTBR[i] }}</span>
       <mat-chip *ngIf="i > 0 && i < item[0].length">{{ item[1] }}</mat-chip>
     </div>
     </mat-chip-set>
@@ -20,15 +20,14 @@
 </app-alert-dialog>
 
 <br><br>
-<mat-paginator *ngIf="count$ | async; let count"
+<mat-paginator *ngIf="(count$ | async) ; let count"
                #paginator
                (page)="handlePageChange($event)"
                [showFirstLastButtons]="true"
-               [disabled]="!(successRes$ | async)"
-               [length]="count"
+               [disabled]="false"
+               [length]="(count$ | async)"
                [pageSize]="ITEMS_PER_PAGE"
                [pageIndex]="pageIdx - 1"
                aria-label="Select page">
 </mat-paginator>
 <br><br>
-<p> {{count$ | async}}</p>

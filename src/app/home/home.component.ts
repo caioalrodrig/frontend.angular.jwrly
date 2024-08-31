@@ -16,10 +16,10 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-  readonly panelOpenState = signal(false);
 
   constructor(
     private router: Router
   ){}
+
 
 }

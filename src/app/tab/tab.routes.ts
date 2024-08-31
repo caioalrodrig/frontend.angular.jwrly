@@ -8,7 +8,6 @@ import { UserComponent } from './user/user.component';
 export const routes: Routes = [
   { path: '', component: TabComponent, children: [
     { path: 'search', component: TabFormComponent },
-    { path: 'not-found', component: TabComponent },
     { path: 'user', component: UserComponent }
   ]}
   

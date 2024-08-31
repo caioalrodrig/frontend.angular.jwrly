@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.sessionData$
      .pipe( tap(res => { this.sessionData = res; 
-      this.signInMsg = `Bem vindo ${this.sessionData.uid}`;
+      this.signInMsg = `Bem vindo, ${this.sessionData.name}!`;
      }))
      .subscribe();
    

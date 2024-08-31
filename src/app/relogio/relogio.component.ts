@@ -27,15 +27,12 @@ import { TRelogiosPaginated } from './relogio.interface';
 })    
 
 export class RelogioComponent implements OnInit{
-  readonly cardAttributes = ['','Modelo', 'Marca', 'Preço', 'Pulseira', 'Case'];
+  readonly cardAttributesPTBR = ['','Modelo', 'Marca', 'Preço', 'Pulseira', 'Case'];
 
   relogiosResponse$ = new BehaviorSubject<TRelogiosPaginated>([[[]]]);
 
-  successRes$ = new Subject<boolean>();
+  count$;
 
-  count$ = new BehaviorSubject<number>(-1);
-
-  dataRes: string[][] = [[]];
   readonly ITEMS_PER_PAGE = 2;
   pageIdx = 1;
 
@@ -43,34 +40,28 @@ export class RelogioComponent implements OnInit{
     private RelogiosProvider: RelogioService,
     private route: ActivatedRoute,
     private router: Router
-  ){ }
+  ){
+    this.count$ = this.RelogiosProvider.count$;
+   }
 
   ngOnInit() {     
     this.route.queryParams
      .pipe(
-      tap(params => {  params ? params : this.router.navigate(['tab/search'])}),
+      tap(params => {  Object.entries(params).length > 0 ? 
+        params : this.router.navigate(['tab/search']) }),
       tap(params => this.pageIdx = Number(params['page']) ),
-      map(params => {
-        let newParams = {... params};
-        newParams['limit'] = this.ITEMS_PER_PAGE;
-        return newParams;
-      }),
-      take(1)
-     )
+      map(params => { return {...params, limit: this.ITEMS_PER_PAGE} }))
      .subscribe(params => {   
       this.RelogiosProvider.getRelogiosData(params)
-       .pipe( tap(res => { if (res === undefined) this.count$.next(-1) }),
-        take(1) 
-       )
+       .pipe(
+        catchError(error => this.router.navigate(['/not-found'])), 
+        take(1))
        .subscribe({
         next: (res) => {
           this.relogiosResponse$.next(res);
-          this.successRes$.next(true);
-          
         },
         error: (error) => {
           console.error(`Erro ao buscar dados: ${error}`);
-          this.successRes$.next(false);
           this.count$.next(-1);
         }});
     });
@@ -94,6 +85,6 @@ export class RelogioComponent implements OnInit{
 
   getResultsNotFound(){
     setTimeout(() => { this.router.navigate(['tab/search']) }, 2000);
-  
+
   }
 }
