@@ -29,7 +29,8 @@ import { BehaviorSubject, tap } from 'rxjs';
 })
 
 export class AppComponent implements OnInit {
-  readonly homeUrl = '/home'
+  readonly homeUrl = '/home';
+  
   icon = 'menu';
 
   routeBuffer: string = this.homeUrl;
@@ -58,7 +59,9 @@ export class AppComponent implements OnInit {
      .pipe( tap(res => { this.sessionData = res; 
       this.signInMsg = `Bem vindo, ${this.sessionData.name}!`;
      }))
-     .subscribe();
+     .subscribe( res => { if (typeof window !== 'undefined' && window.sessionStorage)
+      sessionStorage.setItem('userInfo', JSON.stringify(res));
+     });
    
   }
 

@@ -1,1 +1,19 @@
-<p>user works!</p>
+<h1> Minha conta</h1>
+<mat-accordion> 
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> <mat-icon> person </mat-icon> </mat-panel-title>
+      <mat-panel-description> Informações da conta </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p *ngFor="let info of sessionData">
+      {{info[1]}}
+    </p>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> <mat-icon> favorite </mat-icon> </mat-panel-title>
+      <mat-panel-description> Currently I am </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel> 
+</mat-accordion>

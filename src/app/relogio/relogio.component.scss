@@ -8,7 +8,14 @@ div.chip-col{
 }
 
 mat-card-footer {
+  position: relative;
   padding: 16px;
+
+  & button{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 mat-chip-set {

@@ -3,6 +3,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import { MatIcon } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
@@ -13,6 +14,7 @@ import { RelogioService } from './relogio.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Subject, take, tap } from 'rxjs';
 import { TRelogiosPaginated } from './relogio.interface';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-relogio',
@@ -20,7 +22,8 @@ import { TRelogiosPaginated } from './relogio.interface';
   imports: [ JsonPipe, MatCardModule, MatChipsModule,
     CommonModule, ReactiveFormsModule,
     MatProgressBarModule, MatSelectModule,
-    MatInputModule, MatPaginatorModule, AlertDialogComponent
+    MatInputModule, MatPaginatorModule,
+    AlertDialogComponent, MatIcon, MatButtonModule
   ],
   templateUrl: './relogio.component.html',
   styleUrl: './relogio.component.scss'
