@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { Router, ActivatedRoute, RouterOutlet, RouterModule, UrlSegment } from '@angular/router';
+import { Router, ActivatedRoute, RouterOutlet, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,7 +12,7 @@ import { IUserSession } from './signin/signin.interface';
 import { SignUpService } from './signup/signup.service';
 import { SignUpComponent } from './signup/signup.component';
 import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';
-import { BehaviorSubject, tap } from 'rxjs';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',

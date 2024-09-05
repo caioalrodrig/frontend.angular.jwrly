@@ -4,7 +4,7 @@
   </button>
   
   <span class="spacer"> 
-    <a [href]="homeUrl" >APIJewel <mat-icon>arrow_drop_down</mat-icon></a>
+    <a [routerLink]="['/home']" >APIJewel <mat-icon>arrow_drop_down</mat-icon></a>
   </span>
   <button value="submit" (click)="navigateTo('/tab/user')" mat-icon-button [attr.ariaLabel]="'Icon-button with ' + icon + ' symbol'">
     <mat-icon>person</mat-icon>

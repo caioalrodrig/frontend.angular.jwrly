@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
+import { UserService } from './user.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -17,14 +19,30 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit {
-  sessionData: [string, any][] = []; 
+  readonly getLikesParams = {
+    page: 1,
+    limit: 10,
+  };
 
-  constructor() {}
+  sessionData: Record<string, any> = {}; 
+  sessionDataArray: [string, unknown][] = [];
+  relogioTitles$;
+
+  constructor(
+    private UserProvider: UserService
+  ) {
+    this.relogioTitles$ = UserProvider.relogioTitles$;
+  }
 
   ngOnInit() {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       const storedData = window.sessionStorage.getItem('userInfo');
-      this.sessionData = storedData ? Object.entries(JSON.parse(storedData)) : [];
+      if(storedData) this.sessionData = JSON.parse(storedData);
     }
+    this.UserProvider.getLikedTitleWatches({...this.getLikesParams,
+      userId: this.sessionData['userId']} )
+    .pipe( tap( res => this.sessionDataArray = Object.values(this.sessionData)))
+    .subscribe( res => this.relogioTitles$.next(res));
   }
+
 }
