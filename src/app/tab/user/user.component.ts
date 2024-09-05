@@ -8,6 +8,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { UserService } from './user.service';
 import { tap } from 'rxjs';
+import { GetUserCredentialsService } from '../../shared/get-user-credentials.service';
 
 @Component({
   selector: 'app-user',
@@ -24,24 +25,22 @@ export class UserComponent implements OnInit {
     limit: 10,
   };
 
-  sessionData: Record<string, any> = {}; 
+  sessionData: Record<string, any> | null = {}; 
   sessionDataArray: [string, unknown][] = [];
   relogioTitles$;
 
   constructor(
-    private UserProvider: UserService
+    private UserProvider: UserService,
+    private credentialsProvider: GetUserCredentialsService
   ) {
     this.relogioTitles$ = UserProvider.relogioTitles$;
   }
 
   ngOnInit() {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      const storedData = window.sessionStorage.getItem('userInfo');
-      if(storedData) this.sessionData = JSON.parse(storedData);
-    }
+    this.sessionData = this.credentialsProvider.getCredentials();
     this.UserProvider.getLikedTitleWatches({...this.getLikesParams,
-      userId: this.sessionData['userId']} )
-    .pipe( tap( res => this.sessionDataArray = Object.values(this.sessionData)))
+      userId: this.sessionData!['userId']} )
+    .pipe( tap( res => this.sessionDataArray = Object.values(this.sessionData!)))
     .subscribe( res => this.relogioTitles$.next(res));
   }
 

@@ -12,9 +12,10 @@ import { TRelogioCardData } from './relogio.interface';
 import { AlertDialogComponent } from '../shared/alert-dialog/alert-dialog.component';
 import { RelogioService } from './relogio.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, Subject, take, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, take, tap } from 'rxjs';
 import { TRelogiosPaginated } from './relogio.interface';
 import { MatButtonModule } from '@angular/material/button';
+import { WishListService } from '../shared/wish-list/wish-list.service';
 
 @Component({
   selector: 'app-relogio',
@@ -32,7 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class RelogioComponent implements OnInit{
   readonly cardAttributesPTBR = ['','Modelo', 'Marca', 'Preço', 'Pulseira', 'Case'];
 
-  relogiosResponse$ = new BehaviorSubject<TRelogiosPaginated>([[[]]]);
+  relogiosResponse$ = new BehaviorSubject<TRelogiosPaginated>([[]]);
 
   count$;
 
@@ -41,6 +42,7 @@ export class RelogioComponent implements OnInit{
 
   constructor(
     private RelogiosProvider: RelogioService,
+    private wishListProvider: WishListService,
     private route: ActivatedRoute,
     private router: Router
   ){
@@ -88,6 +90,13 @@ export class RelogioComponent implements OnInit{
 
   getResultsNotFound(){
     setTimeout(() => { this.router.navigate(['tab/search']) }, 2000);
+
+  }
+
+  likeRelogio(relogioId: string){
+    this.wishListProvider.likeRelogio({ userId: 10,
+      watchId: Number(relogioId)
+    }).subscribe()
 
   }
 }
