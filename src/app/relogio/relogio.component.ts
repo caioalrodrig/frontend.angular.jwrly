@@ -16,6 +16,7 @@ import { BehaviorSubject, catchError, map, take, tap } from 'rxjs';
 import { TRelogiosPaginated } from './relogio.interface';
 import { MatButtonModule } from '@angular/material/button';
 import { WishListService } from '../shared/wish-list/wish-list.service';
+import { GetUserCredentialsService } from '../shared/get-user-credentials.service';
 
 @Component({
   selector: 'app-relogio',
@@ -41,6 +42,7 @@ export class RelogioComponent implements OnInit{
   pageIdx = 1;
 
   constructor(
+    private credentialsProvider: GetUserCredentialsService,
     private RelogiosProvider: RelogioService,
     private wishListProvider: WishListService,
     private route: ActivatedRoute,
@@ -94,9 +96,16 @@ export class RelogioComponent implements OnInit{
   }
 
   likeRelogio(relogioId: string){
-    this.wishListProvider.likeRelogio({ userId: 10,
+    const { uid } = this.credentialsProvider.getCredentials();
+    this.wishListProvider.likeRelogio({ userId: uid,
       watchId: Number(relogioId)
-    }).subscribe()
+    })
+    .subscribe({ next: (res) => {
+
+    },
+      error: (error) => {
+
+    }});
 
   }
 }
