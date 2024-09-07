@@ -13,6 +13,6 @@ export class GetUserCredentialsService {
       const storedData = window.sessionStorage.getItem('userInfo');
       if (storedData) return JSON.parse(storedData);
     }
-    return {bearer: '', name: '', uid: 0};
+    return {bearer: '', name: '', userId: 0};
   }
 }

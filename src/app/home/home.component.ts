@@ -20,5 +20,14 @@ export class HomeComponent {
     private router: Router
   ){}
 
+  onFieldSelection(fieldValue: string){
+          
+    this.router.navigate(['relogios'], {
+      queryParams: {
+        title: fieldValue,
+        page: 1
+      }
+    });    
+  }
 
 }

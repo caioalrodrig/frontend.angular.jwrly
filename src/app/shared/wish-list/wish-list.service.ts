@@ -13,14 +13,16 @@ export class WishListService {
   constructor( private http: HttpClient ) { }
 
   likeRelogio(params: ILikeRelogios){
-    return this.http.post<any>(this.apiUrl, { params: params });
+    return this.http.post<any>(this.apiUrl, {}, { params: this.setparams(params) })
   }
 
   unlikeRelogio(params: ILikeRelogios){
-    const QParams = new HttpParams()
-    .set('userId', params.userId)
-    .set('param2', params.watchId);
+    return this.http.delete<any>(this.apiUrl, { params: this.setparams(params) })
+  }
 
-    return this.http.delete<any>(this.apiUrl, { params: QParams })
+  setparams(params: ILikeRelogios){
+    return new HttpParams()
+    .set('userId', params.userId)
+    .set('watchId', params.watchId);
   }
 }

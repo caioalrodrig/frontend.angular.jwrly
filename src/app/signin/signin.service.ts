@@ -11,9 +11,9 @@ import { IUserSession } from '../shared/user-session.interface';
 export class SignInService {
   private readonly apiUrl = `${environment.API_URL}/signin`;
   
-  public sessionData$ = new BehaviorSubject<IUserSession>({name: '', uid: 0, bearer: ''});
+  public sessionData$ = new BehaviorSubject<IUserSession>({name: '', userId: 0, bearer: ''});
   
-  public sessionData: IUserSession = {name: '', uid: 0, bearer: ''};
+  public sessionData: IUserSession = {name: '', userId: 0, bearer: ''};
 
   public signedin$ = new BehaviorSubject<boolean>(false);
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarAction, MatSnackBarActions, 
+  MatSnackBarLabel,  MatSnackBarRef,} from '@angular/material/snack-bar';
 import { TRelogioCardData } from './relogio.interface';
 import { AlertDialogComponent } from '../shared/alert-dialog/alert-dialog.component';
 import { RelogioService } from './relogio.service';
@@ -17,6 +19,7 @@ import { TRelogiosPaginated } from './relogio.interface';
 import { MatButtonModule } from '@angular/material/button';
 import { WishListService } from '../shared/wish-list/wish-list.service';
 import { GetUserCredentialsService } from '../shared/get-user-credentials.service';
+import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-relogio',
@@ -32,6 +35,10 @@ import { GetUserCredentialsService } from '../shared/get-user-credentials.servic
 })    
 
 export class RelogioComponent implements OnInit{
+  private _snackBar = inject(MatSnackBar);
+
+  readonly snackbarDurationInSecs = 5;
+
   readonly cardAttributesPTBR = ['','Modelo', 'Marca', 'Preço', 'Pulseira', 'Case'];
 
   relogiosResponse$ = new BehaviorSubject<TRelogiosPaginated>([[]]);
@@ -96,16 +103,26 @@ export class RelogioComponent implements OnInit{
   }
 
   likeRelogio(relogioId: string){
-    const { uid } = this.credentialsProvider.getCredentials();
-    this.wishListProvider.likeRelogio({ userId: uid,
+    const { userId } = this.credentialsProvider.getCredentials();
+    this.wishListProvider.likeRelogio({ userId: userId,
       watchId: Number(relogioId)
     })
-    .subscribe({ next: (res) => {
+    .subscribe({ next: (res) => { this.openSnackBar({
+      message: 'Item adicionado a wishlist!',
+      icon: '🞫'
+    })}, error: (error) => { this.openSnackBar({
+      message: 'Esse item já está em sua wishlist',
+      icon: '🞫'
+    })}  }); 
 
-    },
-      error: (error) => {
+  }
 
-    }});
-
+  openSnackBar(config: Record<string, any>) {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      duration: this.snackbarDurationInSecs * 1000, data : {
+        message: config['message'],
+        icon: config['icon']
+      }
+    });
   }
 }
