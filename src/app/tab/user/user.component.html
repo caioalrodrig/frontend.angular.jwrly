@@ -5,19 +5,19 @@
       <mat-panel-title> <mat-icon> person </mat-icon> </mat-panel-title>
       <mat-panel-description> Informações da conta </mat-panel-description>
     </mat-expansion-panel-header>
-    <p *ngFor="let info of sessionDataArray; let i = index ">
-      @if(i < sessionDataArray.length - 1){
-       {{info}}
-      }
-    </p>
+    <span><i>ID Usuário:</i> {{userDataArray[0]}}</span><br>
+    <span><i>Name:</i> {{userDataArray[1]}}</span>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title> <mat-icon> favorite </mat-icon> </mat-panel-title>
       <mat-panel-description> Likes </mat-panel-description>
     </mat-expansion-panel-header>
-    <p *ngFor="let titleLiked of (relogioTitles$ | async)">
-      {{titleLiked}}
-    </p>
+    <span *ngFor="let titleLiked of (relogioTitles$ | async)">
+      @if(titleLiked){
+        <!-- <button (click)="removeFromWishList(titleLiked)" mat-icon-button>🞪</button> -->
+        {{titleLiked}}
+      }<br>
+    </span>
   </mat-expansion-panel> 
 </mat-accordion>

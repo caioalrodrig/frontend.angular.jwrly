@@ -8,7 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { SignInService } from './signin/signin.service';
 import { SignInComponent } from './signin/signin.component';
-import { IUserSession } from './shared/user-session.interface';
+import { IUserSession } from './shared/session.interface';
 import { SignUpService } from './signup/signup.service';
 import { SignUpComponent } from './signup/signup.component';
 import { AlertDialogComponent } from './shared/alert-dialog/alert-dialog.component';

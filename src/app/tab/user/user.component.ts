@@ -8,7 +8,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { UserService } from './user.service';
 import { tap } from 'rxjs';
-import { GetUserCredentialsService } from '../../shared/get-user-credentials.service';
+import { GetUserCredentialsService } from '../../shared/get-session-data.service';
+import { WishListService } from '../../shared/wish-list/wish-list.service';
+import { SnackbarService } from '../../shared/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-user',
@@ -20,28 +22,51 @@ import { GetUserCredentialsService } from '../../shared/get-user-credentials.ser
   styleUrl: './user.component.scss'
 })
 export class UserComponent implements OnInit {
+
   readonly getLikesParams = {
     page: 1,
     limit: 10,
   };
 
-  sessionData: Record<string, any> | null = {}; 
-  sessionDataArray: [string, unknown][] = [];
+  userData: Record<string, any> | null = {}; 
+  userDataArray: [string, unknown][] = [];
   relogioTitles$;
 
   constructor(
     private UserProvider: UserService,
-    private credentialsProvider: GetUserCredentialsService
+    private SnackbarProvider: SnackbarService,
+    private WishListProvider: WishListService,
+    private SessionDataProvider: GetUserCredentialsService
   ) {
     this.relogioTitles$ = UserProvider.relogioTitles$;
   }
 
   ngOnInit() {
-    this.sessionData = this.credentialsProvider.getCredentials();
+    this.userData = this.SessionDataProvider.getCredentials('userInfo');
     this.UserProvider.getLikedTitleWatches({...this.getLikesParams,
-      userId: this.sessionData!['userId']} )
-    .pipe( tap( res => this.sessionDataArray = Object.values(this.sessionData!)))
+      userId: this.userData!['userId']} )
+    .pipe( tap( res => this.userDataArray = Object.values(this.userData!)))
     .subscribe( res => this.relogioTitles$.next(res));
   }
 
+  // removeFromList(){
+  //   let relogiosData = this.SessionDataProvider.getCredentials('userLikedWatches');
+
+  //   this.WishListProvider.unlikeRelogio({userId: relogiosData[0], watchId: relogiosData[1]})
+  //   .subscribe(res => { this.SnackbarProvider.openSnackBar({
+  //     message: 'Item adicionado a wishlist!',
+  //     icon: '🞫'
+  //   }) });
+  // }
+
+
+  // deleteFromWishList(){
+  //   const credentials = this.CredentialsProvider.getCredentials('userLikedWatches');
+    
+  //   this.WishListProvider.unlikeRelogio({ userId: 'userId' in credentials? 
+  //     credentials.userId : 0,
+  //     watchId: Number(relogioId)
+  //   })
+
+  // }
 }

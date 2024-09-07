@@ -3,7 +3,7 @@ import { delay, Observable, Subject, tap, take, catchError, of, BehaviorSubject 
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment.development';
-import { IUserSession } from '../shared/user-session.interface';
+import { IUserSession } from '../shared/session.interface';
 
 @Injectable({
   providedIn: 'root'

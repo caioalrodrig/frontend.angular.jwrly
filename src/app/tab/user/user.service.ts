@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { catchError, map, of, Subject, take, tap } from 'rxjs';
+import { TRelogiosSessionData } from '../../shared/session.interface';
+import { GetUserCredentialsService } from '../../shared/get-session-data.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +15,19 @@ export class UserService {
   public relogioTitles$ = new Subject<string[]>(); 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private CredentialsProvider: GetUserCredentialsService,
   ) { }
 
   getLikedTitleWatches(params: Record<string,any>){
-    return this.http.get<any>(this.apiUrl, { params: params })
+    return this.http.get<TRelogiosSessionData>(this.apiUrl, { params: params })
       .pipe(
-        take(1),
         catchError(error => { return of(['']) }),
+        tap(res => { if (typeof window !== 'undefined' && window.sessionStorage)
+          sessionStorage.setItem('userLikedWatches', JSON.stringify(res)); }),
         map(res => res.map((item: any) => item.title)),
+        take(1)
       );
-        
   }
 
 }

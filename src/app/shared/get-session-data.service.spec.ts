@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GetUserCredentialsService } from './get-user-credentials.service';
+import { GetUserCredentialsService } from './get-session-data.service';
 
 describe('GetUserCredentialsService', () => {
   let service: GetUserCredentialsService;
