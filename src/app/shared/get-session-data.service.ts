@@ -15,6 +15,6 @@ export class GetUserCredentialsService {
       if (storedData) return JSON.parse(storedData);
     }
     return sessionItem === 'userInfo' ? {bearer: '', name: '', userId: 0} :
-      [['null', 'null']];
+      [{title: '', id: 0}];
   }
 }

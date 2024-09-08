@@ -13,9 +13,9 @@
       <mat-panel-title> <mat-icon> favorite </mat-icon> </mat-panel-title>
       <mat-panel-description> Likes </mat-panel-description>
     </mat-expansion-panel-header>
-    <span *ngFor="let titleLiked of (relogioTitles$ | async)">
+    <span *ngFor="let titleLiked of (relogioTitles$ | async); let i = index">
       @if(titleLiked){
-        <!-- <button (click)="removeFromWishList(titleLiked)" mat-icon-button>🞪</button> -->
+        <button (click)="removeFromList(titleLiked, i)" mat-icon-button>x</button>
         {{titleLiked}}
       }<br>
     </span>

@@ -4,4 +4,9 @@ export interface IUserSession{
   userId: number
 };
 
-export type TRelogiosSessionData = [string, any][];
+interface IRelogiosSessionData{
+  title: string, 
+  id: number
+};
+
+export type TRelogiosSessionData = IRelogiosSessionData[];

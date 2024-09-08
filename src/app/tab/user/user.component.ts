@@ -43,30 +43,27 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.userData = this.SessionDataProvider.getCredentials('userInfo');
+
     this.UserProvider.getLikedTitleWatches({...this.getLikesParams,
       userId: this.userData!['userId']} )
     .pipe( tap( res => this.userDataArray = Object.values(this.userData!)))
     .subscribe( res => this.relogioTitles$.next(res));
   }
 
-  // removeFromList(){
-  //   let relogiosData = this.SessionDataProvider.getCredentials('userLikedWatches');
+  removeFromList(titleToRemove: string, listIndex: number){
+    let relogiosData = this.SessionDataProvider.getCredentials('userLikedWatches');
 
-  //   this.WishListProvider.unlikeRelogio({userId: relogiosData[0], watchId: relogiosData[1]})
-  //   .subscribe(res => { this.SnackbarProvider.openSnackBar({
-  //     message: 'Item adicionado a wishlist!',
-  //     icon: '🞫'
-  //   }) });
-  // }
+    if ('userId' in relogiosData) return;
 
+    this.WishListProvider.unlikeRelogio({...this.getLikesParams,
+      userId: this.userData!['userId'], watchId: 
+      relogiosData[listIndex].id
+    })
+    .subscribe(res => { this.SnackbarProvider.openSnackBar({
+      message: 'Item deletado da wishlist!',
+      icon: '✕'
+    }) });
 
-  // deleteFromWishList(){
-  //   const credentials = this.CredentialsProvider.getCredentials('userLikedWatches');
-    
-  //   this.WishListProvider.unlikeRelogio({ userId: 'userId' in credentials? 
-  //     credentials.userId : 0,
-  //     watchId: Number(relogioId)
-  //   })
+  }
 
-  // }
 }

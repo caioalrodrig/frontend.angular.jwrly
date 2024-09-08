@@ -111,10 +111,10 @@ export class RelogioComponent implements OnInit{
     })
     .subscribe({ next: (res) => { this.SnackbarProvider.openSnackBar({
       message: 'Item adicionado a wishlist!',
-      icon: '🞫'
+      icon: '✕'
     })}, error: (error) => { this.SnackbarProvider.openSnackBar({
       message: 'Esse item já está em sua wishlist',
-      icon: '🞫'
+      icon: '✕'
     })}  }); 
 
   }

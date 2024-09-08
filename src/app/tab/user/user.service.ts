@@ -16,7 +16,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private CredentialsProvider: GetUserCredentialsService,
+    private SessionDataProvider: GetUserCredentialsService,
   ) { }
 
   getLikedTitleWatches(params: Record<string,any>){
