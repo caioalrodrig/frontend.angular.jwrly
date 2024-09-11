@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { TabFormComponent } from './tab-form/tab-form.component';
 import { RouterOutlet } from '@angular/router';
 

@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchBarComponent } from "../shared/search-bar/search-bar.component";
-import { SearchBarService } from '../shared/search-bar/search-bar.service';
 import { MatCard } from '@angular/material/card';
 import { Router } from '@angular/router';
 

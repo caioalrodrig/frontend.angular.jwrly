@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {  MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,7 +6,6 @@ import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from "@angula
 import { MatInputModule } from '@angular/material/input';
 import { MatCard } from '@angular/material/card';
 import { SignInService } from './signin.service';
-import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,6 +1,5 @@
-import { TRelogiosPaginated } from '../../relogio/relogio.interface';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, debounceTime, map, of, pipe, switchMap, take, tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 

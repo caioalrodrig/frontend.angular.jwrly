@@ -1,7 +1,6 @@
 import {Component, inject, Inject} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  MatSnackBar,
   MatSnackBarAction,
   MatSnackBarActions,
   MatSnackBarLabel,

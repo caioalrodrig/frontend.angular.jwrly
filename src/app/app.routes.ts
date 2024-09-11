@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-import { AppComponent } from './app.component';
-import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   { path: 'signin',

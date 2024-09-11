@@ -1,7 +1,6 @@
 import { environment } from '../../../environments/environment.development';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, of, take, tap } from 'rxjs';
 import { ILikeRelogios } from './wish-list.interface';
 
 @Injectable({
