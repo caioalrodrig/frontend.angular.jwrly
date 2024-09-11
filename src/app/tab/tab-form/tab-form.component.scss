@@ -4,7 +4,7 @@ mat-card-footer {
 
 hr{
   border: 1px solid #ababab93; 
-  width: 250px;
+  width: 70%;
   margin: 20px 0;
   position: absolute;
 
@@ -39,13 +39,14 @@ form{
     margin-bottom: 5px ; 
   }
 
-  & mat-radio-group.radio-group{
+  & mat-radio-group{
     display: flex;
     flex-direction: column;
+    align-items: start;
   }
 }
 
 button{
   width: fit-content;
-  align-self: flex-end;
+  align-self: center;
 }

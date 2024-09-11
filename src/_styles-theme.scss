@@ -2,6 +2,15 @@
 @use '@angular/material' as mat;
 
 @mixin colors($theme) {
+  body{
+    background-color: mat.get-theme-color($theme, neutral, 99);
+  }
+  mat-card{
+    background-color: mat.get-theme-color($theme, neutral, 98);
+  }
+  mat-toolbar, mat-paginator, mat-expansion-panel{
+    background-color: mat.get-theme-color($theme, neutral, 100);
+  }
   button.primary {
     background-color: mat.get-theme-color($theme, primary, 50);
   }
