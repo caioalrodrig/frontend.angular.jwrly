@@ -25,6 +25,7 @@ export class UserService {
         catchError(error => { return of(['']) }),
         tap(res => { if (typeof window !== 'undefined' && window.sessionStorage)
           sessionStorage.setItem('userLikedWatches', JSON.stringify(res)); }),
+        tap(res => console.log(res)),
         map(res => res.map((item: any) => item.title)),
         take(1)
       );

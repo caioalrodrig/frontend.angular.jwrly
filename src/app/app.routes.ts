@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './shared/guards/auth.guard';
 import { RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
@@ -11,16 +12,16 @@ export const routes: Routes = [
   },
   { path: 'tab', 
     loadChildren: () => import('./tab/tab.routes').then( t => t.routes ),
-    /*canActivate: [authGuard]*/ },    
+    canActivate: [authGuard] },    
   { path: 'home', 
     loadChildren: () => import('./home/home.routes').then( m => m.routes ),
-    /*canActivate: [authGuard]*/},
+    canActivate: [authGuard]},
   { path: 'relogios',
     loadChildren: () => import('./relogio/relogio.routes').then( m => m.routes ),
-    /*canActivate: [authGuard]*/},
+    canActivate: [authGuard]},
   { path: 'not-found', 
-    loadChildren: () => import('./not-found/not-found.routes').then( m => m.routes )
-    /*canActivate: [authGuard]*/
+    loadChildren: () => import('./not-found/not-found.routes').then( m => m.routes ),
+    canActivate: [authGuard]
   },
 
 ];

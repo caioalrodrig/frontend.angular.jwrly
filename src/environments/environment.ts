@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_URL: 'https://apijewelprices-production.up.railway.app'
+  API_URL: 'https://node-api-369149055337.us-central1.run.app'
 };

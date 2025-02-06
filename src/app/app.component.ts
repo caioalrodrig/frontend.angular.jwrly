@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
   ) {
     this.loggedin$ = this.SigninProvider.signedin$;
     this.sessionData$ = this.SigninProvider.sessionData$;
-    // this.router.navigate(['signup']);
+    this.router.navigate(['signup']);
   }
 
   ngOnInit() {

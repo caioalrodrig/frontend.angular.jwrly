@@ -36,6 +36,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+/.firebase
 
 # System files
 .DS_Store
@@ -43,8 +44,10 @@ Thumbs.db
 
 src/app/shared/guards/auth.resolver.ts
 src/app/shared/guards/auth.resolver.spec.ts
+/dist
+/src/environments
+
 /src/app/navbar/navbar-list.service.ts
 /src/app/navbar/navbar-list.service.spec.ts
-/.firebase
 eslint.config.js
 eslint.config.mjs
